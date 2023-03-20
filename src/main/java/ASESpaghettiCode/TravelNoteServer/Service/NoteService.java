@@ -51,4 +51,11 @@ public class NoteService {
         }
         return listOfNotes;
     }
+    public Note findNoteById(String noteId) {
+        Optional<Note> targetNote = noteRepository.findById(noteId);
+        if (targetNote.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Note is not found!");
+        }
+        return targetNote.get();
+    }
 }
