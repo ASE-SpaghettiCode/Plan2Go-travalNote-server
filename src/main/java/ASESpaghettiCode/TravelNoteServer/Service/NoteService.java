@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -30,9 +31,12 @@ public class NoteService {
 
     public void deleteNote(String noteId, String userId) {
         Optional<Note> targetNote = noteRepository.findById(noteId);
-        if (targetNote.isEmpty() || userId != targetNote.get().getUserId()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        } else {
+        if (targetNote.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Note is not found!");
+        } else if (!Objects.equals(userId, targetNote.get().getUserId())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You cannot delete this note!");
+        }
+        else {
             noteRepository.delete(noteRepository.findById(noteId).get());
         }
     }
