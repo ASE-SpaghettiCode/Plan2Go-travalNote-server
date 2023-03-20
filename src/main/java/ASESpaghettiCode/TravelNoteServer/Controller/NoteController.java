@@ -9,24 +9,23 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-
 @CrossOrigin(origins = "http://localhost:3000")
 public class NoteController {
 
     @Autowired
     private NoteService noteService;
 
-    @PostMapping("/notes")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void createNote(@RequestBody Note note){
-        noteService.save(note);
-    }
-
     @GetMapping("/notes")
     @ResponseStatus(HttpStatus.OK)
     public List<Note> findAll(){
         return noteService.findAll();
 
+    }
+
+    @PostMapping("notes")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Note createNote(@RequestBody Note newNote) {
+        return noteService.createNote(newNote);
     }
 
     @RequestMapping("/notes/{noteId}")

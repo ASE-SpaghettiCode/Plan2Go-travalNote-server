@@ -1,9 +1,12 @@
 package ASESpaghettiCode.TravelNoteServer.Model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.mongodb.lang.Nullable;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
 
 @Data
 @Document
@@ -15,12 +18,14 @@ public class Note {
     private String content;
     private Double latitude;
     private Double longitude;
+    private List<String> picURLs;
 
-    public Note(String title, String content, Double latitude, Double longitude) {
+    public Note(String title, String content, Double latitude, Double longitude, List<String> picURLs) {
         this.title = title;
         this.content = content;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.picURLs = picURLs;
     }
 
     public String getNoteId() {
@@ -45,6 +50,14 @@ public class Note {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public List<String> getPicURLs() {
+        return picURLs;
+    }
+
+    public void setPicURLs(List<String> urls) {
+        this.picURLs = urls;
     }
 
 }
