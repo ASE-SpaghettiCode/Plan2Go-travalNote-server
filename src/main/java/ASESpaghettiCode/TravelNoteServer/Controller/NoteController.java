@@ -19,7 +19,12 @@ public class NoteController {
     @ResponseStatus(HttpStatus.OK)
     public List<Note> findAll(){
         return noteService.findAll();
+    }
 
+    @GetMapping("users/{userId}/notes")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Note> findNotesByUser(@PathVariable String userId) {
+        return noteService.findNotesById(userId);
     }
 
     @PostMapping("/notes")
