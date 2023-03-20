@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -39,5 +40,15 @@ public class NoteService {
         else {
             noteRepository.delete(noteRepository.findById(noteId).get());
         }
+    }
+
+    public List<Note> findNotesById(String userId) {
+        List<Note> listOfNotes = new ArrayList<>();
+        for (Note note : noteRepository.findAll()) {
+            if (Objects.equals(note.getNoteId(), userId)){
+                listOfNotes.add(note);
+            }
+        }
+        return listOfNotes;
     }
 }
