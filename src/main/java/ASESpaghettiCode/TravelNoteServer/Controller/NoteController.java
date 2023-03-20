@@ -3,8 +3,10 @@ package ASESpaghettiCode.TravelNoteServer.Controller;
 import ASESpaghettiCode.TravelNoteServer.Model.Note;
 import ASESpaghettiCode.TravelNoteServer.Service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -12,6 +14,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
 public class NoteController {
+
 
     @Autowired
     private NoteService noteService;
