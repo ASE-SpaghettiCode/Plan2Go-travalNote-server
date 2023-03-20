@@ -22,10 +22,16 @@ public class NoteController {
 
     }
 
-    @PostMapping("notes")
+    @PostMapping("/notes")
     @ResponseStatus(HttpStatus.CREATED)
     public Note createNote(@RequestBody Note newNote) {
         return noteService.createNote(newNote);
+    }
+
+    @DeleteMapping("/users/{userId}/notes/{noteId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteNote(@PathVariable String noteId, @PathVariable String userId) {
+        noteService.deleteNote(noteId, userId);
     }
 
     @RequestMapping("/notes/{noteId}")
