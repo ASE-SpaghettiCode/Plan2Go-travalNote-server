@@ -1,0 +1,4 @@
+{"title":"a trip to zurich","content":"we had a lot of fun in a night in Zurich","latitude":48.2,"longitude":8.1}
+{"title":"a trip to New York","content":"we had a lot of fun in a night in New York","latitude":40,"longitude":-74}
+{"title":"a trip to Beijing","content":"we had a lot of fun in a night in Beijing","latitude":39.9,"longitude":116.4}
+{"title":"a trip to Tokyo","content":"we had a lot of fun in a night in Tokyo","latitude":35.6,"longitude":139.5}

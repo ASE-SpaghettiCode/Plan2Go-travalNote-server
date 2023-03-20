@@ -1,19 +1,33 @@
 package ASESpaghettiCode.TravelNoteServer.Model;
 
-public class Note {
-    private Integer noteId;
-    private String title;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-    public Note(Integer noteId, String title) {
-        this.noteId = noteId;
+@Data
+@Document
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class Note {
+    @Id
+    private String  noteId;
+    private String title;
+    private String content;
+    private Double latitude;
+    private Double longitude;
+
+    public Note(String title, String content, Double latitude, Double longitude) {
         this.title = title;
+        this.content = content;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
-    public Integer getNoteId() {
+    public String getNoteId() {
         return noteId;
     }
 
-    public void setNoteId(Integer noteId) {
+    public void setNoteId(String noteId) {
         this.noteId = noteId;
     }
 
@@ -24,4 +38,13 @@ public class Note {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
 }
