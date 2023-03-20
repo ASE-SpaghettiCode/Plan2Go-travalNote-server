@@ -9,6 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface NoteRepository extends MongoRepository<Note, String> {
-    public List<Note> findAll();
+//    public List<Note> findAll();
     public Optional<Note> findById(String noteId);
 }

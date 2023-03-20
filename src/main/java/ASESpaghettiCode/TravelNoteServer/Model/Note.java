@@ -1,6 +1,7 @@
 package ASESpaghettiCode.TravelNoteServer.Model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.mongodb.lang.Nullable;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -8,26 +9,38 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.List;
 
 @Data
-@Document
-@JsonInclude(JsonInclude.Include.NON_NULL)
+//@Document
+//@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Note {
     @Id
     private String noteId;
+
     private String noteTitle;
+
     private String authorId;
+
     private String coverImage;
+
     private String date;
-    private int duration;
-    private double rating;
-    private int expense;
-    private int numTravelers;
+
+    private Integer duration;
+
+    private Double rating;
+
+    private Integer expense;
+
+    private Integer numTravelers;
+
     private String targetGroup;
+
     private String destination;
-    private double[] coordinates;
+
+    private Double[] coordinates;
+
     private String editorData;
 
 
-    public Note(String noteTitle, String authorId, String coverImage, String date, int duration, double rating, int expense, int numTravelers, String targetGroup, String destination, double[] coordinates, String editorData) {
+    public Note(String noteTitle, String authorId, String coverImage, String date, Integer duration, Double rating, Integer expense, Integer numTravelers, String targetGroup, String destination, Double[] coordinates, String editorData) {
         this.noteTitle = noteTitle;
         this.authorId = authorId;
         this.coverImage = coverImage;
@@ -50,99 +63,100 @@ public class Note {
         this.noteId = noteId;
     }
 
-    public String getNoteTitle(){
+    public String getNoteTitle() {
         return noteTitle;
     }
 
-    public void setNoteTitle(String noteTitle){
+    public void setNoteTitle(String noteTitle) {
         this.noteTitle = noteTitle;
     }
 
-    public String getAuthorId(){
+    public String getAuthorId() {
         return authorId;
     }
 
-    public void setAuthorId(String authorId){
+    public void setAuthorId(String authorId) {
         this.authorId = authorId;
     }
 
-    public String getCoverImage(){
+    public String getCoverImage() {
         return coverImage;
     }
 
-    public void setCoverImage(String coverImage){
+    public void setCoverImage(String coverImage) {
         this.coverImage = coverImage;
     }
 
-    public String getDate(){
+    public String getDate() {
         return date;
     }
 
-    public void setDate(String date){
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public int getDuration(){
+    public Integer getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration){
+    public void setDuration(Integer duration) {
         this.duration = duration;
     }
 
-    public double getRating(){
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(double rating){
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 
-    public int getExpense(){
+    public Integer getExpense() {
         return expense;
     }
 
-    public void setExpense(int expense){
+    public void setExpense(Integer expense) {
         this.expense = expense;
     }
 
-    public int getNumTravelers(){
+    public Integer getNumTravelers() {
         return numTravelers;
     }
 
-    public void setNumTravelers(int numTravelers){
+    public void setNumTravelers(Integer numTravelers) {
         this.numTravelers = numTravelers;
     }
 
-    public String getTargetGroup(){
+    public String getTargetGroup() {
         return targetGroup;
     }
 
-    public void setTargetGroup(String targetGroup){
+    public void setTargetGroup(String targetGroup) {
         this.targetGroup = targetGroup;
     }
 
-    public String getDestination(){
+    public String getDestination() {
         return destination;
     }
 
-    public void setDestination(String destination){
+    public void setDestination(String destination) {
         this.destination = destination;
     }
 
-    public double[] getCoordinates(){
+    public Double[] getCoordinates() {
         return coordinates;
     }
 
-    public void setCoordinates(double[] coordinates){
+    public void setCoordinates(Double[] coordinates) {
         this.coordinates = coordinates;
     }
 
-    public String getEditorData(){
+    public String getEditorData() {
         return editorData;
     }
 
-    public void setEditorData(String editorData){
+
+    public void setEditorData(String editorData) {
         this.editorData = editorData;
     }
 }
