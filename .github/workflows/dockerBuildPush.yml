@@ -1,0 +1,11 @@
+name: dockerBuildPush
+
+on:
+  push:
+    branches:
+      - "main"
+      
+jobs:
+  - build
+  - push
+  - SonarQube test
