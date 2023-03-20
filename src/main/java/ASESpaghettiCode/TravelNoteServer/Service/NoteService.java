@@ -34,7 +34,7 @@ public class NoteService {
         Optional<Note> targetNote = noteRepository.findById(noteId);
         if (targetNote.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Note is not found!");
-        } else if (!Objects.equals(userId, targetNote.get().getUserId())) {
+        } else if (!Objects.equals(userId, targetNote.get().getAuthorId())) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You cannot delete this note!");
         }
         else {
