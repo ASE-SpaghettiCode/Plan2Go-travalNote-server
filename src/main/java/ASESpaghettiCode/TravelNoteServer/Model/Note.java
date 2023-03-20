@@ -15,13 +15,15 @@ public class Note {
     @Id
     private String  noteId;
     private String title;
+    private String userId;
     private String content;
     private Double latitude;
     private Double longitude;
     private List<String> picURLs;
 
-    public Note(String title, String content, Double latitude, Double longitude, List<String> picURLs) {
+    public Note(String title, String userId, String content, Double latitude, Double longitude, List<String> picURLs) {
         this.title = title;
+        this.userId = userId;
         this.content = content;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -58,6 +60,13 @@ public class Note {
 
     public void setPicURLs(List<String> urls) {
         this.picURLs = urls;
+    }
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
 }
