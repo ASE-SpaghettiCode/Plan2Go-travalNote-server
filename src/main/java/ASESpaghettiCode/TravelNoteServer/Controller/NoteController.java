@@ -1,6 +1,7 @@
 package ASESpaghettiCode.TravelNoteServer.Controller;
 
 import ASESpaghettiCode.TravelNoteServer.Model.Note;
+import ASESpaghettiCode.TravelNoteServer.Repository.NoteRepository;
 import ASESpaghettiCode.TravelNoteServer.Service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,14 +12,18 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 public class NoteController {
-
-    @Autowired
     private NoteService noteService;
+    private NoteRepository noteRepository;
+
+    NoteController(NoteRepository noteRepository, NoteService noteService){
+        this.noteRepository = noteRepository;
+        this.noteService = noteService;
+    }
 
     @GetMapping("/notes")
     @ResponseStatus(HttpStatus.OK)
-    public List<Note> findAll(){
-        return noteService.findAll();
+    public List<Note> findAllNotes(){
+        return noteService.findAllNotes();
     }
 
     @GetMapping("/notes/{noteId}")
