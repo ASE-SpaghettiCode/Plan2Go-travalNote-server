@@ -43,7 +43,12 @@ public class NoteService {
     }
 
     public List<Note> findNotesById(String userId) {
-        List<Note> listNotes = noteRepository.findAllById(userId);
-        return listNotes;
+        List<Note> listOfNotes = new ArrayList<>();
+        for (Note note : noteRepository.findAll()) {
+            if (Objects.equals(note.getNoteId(), userId)){
+                listOfNotes.add(note);
+            }
+        }
+        return listOfNotes;
     }
 }
