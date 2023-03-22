@@ -37,10 +37,10 @@ public class Note {
 
     private Double[] coordinates;
 
-    private String editorData;
+    private Object editorData;
 
 
-    public Note(String noteTitle, String authorId, String coverImage, String date, Integer duration, Double rating, Integer expense, Integer numTravelers, String targetGroup, String destination, Double[] coordinates, String editorData) {
+    public Note(String noteTitle, String authorId, String coverImage, String date, Integer duration, Double rating, Integer expense, Integer numTravelers, String targetGroup, String destination, Double[] coordinates, Object editorData) {
         this.noteTitle = noteTitle;
         this.authorId = authorId;
         this.coverImage = coverImage;
@@ -151,12 +151,12 @@ public class Note {
         this.coordinates = coordinates;
     }
 
-    public String getEditorData() {
+    public Object getEditorData() {
         return editorData;
     }
 
 
-    public void setEditorData(String editorData) {
+    public void setEditorData(Object editorData) {
         this.editorData = editorData;
     }
 }
