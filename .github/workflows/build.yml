@@ -3,7 +3,7 @@ name: build
 on:
   push:
     branches:
-      - "main"
+      - "CICD"
       
 jobs:
   docker_SonarQube:
@@ -27,10 +27,10 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/travelNoteServer:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/travel_note_server:latest
           
-      - name: SonarQube
-        uses: sonarsource/sonarcloud-github-action@master
+#      - name: SonarQube
+#        uses: sonarsource/sonarcloud-github-action@master
   
     
 
