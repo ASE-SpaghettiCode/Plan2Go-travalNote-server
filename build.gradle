@@ -37,6 +37,14 @@ test {
 jacocoTestReport {
 	dependsOn test // tests are required to run before generating the report
 }
+jacocoTestReport {
+	group = "Reporting"
+	reports {
+		xml.enabled true
+		csv.enabled false
+		html.destination file("${buildDir}/jacocoHtml")
+	}
+}
 
 tasks.named('test') {
 	useJUnitPlatform()
@@ -45,7 +53,7 @@ tasks.named('test') {
 
 sonarqube {
 	properties {
-//		property "sonar.projectKey", "myproject"
+		property "sonar.projectKey", "ASE-SpaghettiCode:Plan2Go-travalNote-server"
 		property "sonar.organization", "ASE-SpaghettiCode:TravelNoteServer"
 		property "sonar.host.url", "https://sonarcloud.io"
 	}
