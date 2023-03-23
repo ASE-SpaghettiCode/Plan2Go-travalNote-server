@@ -45,8 +45,8 @@ tasks.named('test') {
 
 sonarqube {
 	properties {
-		property "sonar.projectKey", "myproject"
-		property "sonar.organization", "myusername"
+//		property "sonar.projectKey", "myproject"
+//		property "sonar.organization", "myusername"
 		property "sonar.host.url", "https://sonarcloud.io"
 	}
 }
