@@ -6,7 +6,7 @@ on:
       - "CICD"
       
 jobs:
-  docker_SonarQube:
+  docker_sonarqube:
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -34,8 +34,13 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/travel_note_server:latest
 
+      - name: Change wrapper permissions
+        run: chmod +x ./gradlew
+
       - name: test the project and upload test report -> sonarqube
         run: ./gradlew test jacocoTestReport sonarqube --info
+
+
   
     
 
