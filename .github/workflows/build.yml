@@ -28,9 +28,9 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/travel_note_server:latest
-          
-#      - name: SonarQube
-#        uses: sonarsource/sonarcloud-github-action@master
+
+      - name: SonarQube
+        uses: sonarsource/sonarcloud-github-action@master
   
     
 
