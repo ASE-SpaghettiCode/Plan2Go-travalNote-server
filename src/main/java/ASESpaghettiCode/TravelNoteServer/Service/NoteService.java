@@ -61,4 +61,27 @@ public class NoteService {
         }
         return targetNote.get();
     }
+
+    public void updateNote(String noteId, String userId, Note note) {
+        Optional<Note> targetNote = noteRepository.findById(noteId);
+        if (targetNote.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Note is not found!");
+        } else if (!Objects.equals(userId, targetNote.get().getAuthorId())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You cannot edit this note!");
+        }
+        else {
+            targetNote.get().setNoteTitle(note.getNoteTitle());
+            targetNote.get().setCoordinates(note.getCoordinates());
+            targetNote.get().setCoverImage(note.getCoverImage());
+            targetNote.get().setDate(note.getDate());
+            targetNote.get().setDuration(note.getDuration());
+            targetNote.get().setDestination(note.getDestination());
+            targetNote.get().setExpense(note.getExpense());
+            targetNote.get().setNumTravelers(note.getNumTravelers());
+            targetNote.get().setRating(note.getRating());
+            targetNote.get().setTargetGroup(note.getTargetGroup());
+            targetNote.get().setEditorData(note.getEditorData());
+            noteRepository.save(targetNote.get());
+        }
+    }
 }
