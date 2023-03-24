@@ -32,11 +32,22 @@ dependencies {
 }
 
 test {
+	useJUnitPlatform()
+	testLogging.showStandardStreams = true
+	maxParallelForks = 1
 	finalizedBy jacocoTestReport // report is always generated after tests run
 }
+
+jacoco {
+	toolVersion = "0.8.6"
+	reportsDirectory = file("$buildDir/jacocoReportDir")
+}
+
+
 jacocoTestReport {
 	dependsOn test // tests are required to run before generating the report
 }
+
 jacocoTestReport {
 	group = "Reporting"
 	reports {
@@ -46,8 +57,16 @@ jacocoTestReport {
 	}
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
+//tasks.named('test') {
+//	useJUnitPlatform()
+//}
+File secretPropsFile = file('./local.properties')
+if (secretPropsFile.exists()) {
+	Properties p = new Properties()
+	p.load(new FileInputStream(secretPropsFile))
+	p.each { name, value ->
+		ext[name] = value
+	}
 }
 
 
