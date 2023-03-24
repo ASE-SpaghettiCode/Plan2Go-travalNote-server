@@ -3,10 +3,7 @@ name: build
 on:
   push:
     branches:
-<<<<<<< HEAD
-=======
       - "CICD"
->>>>>>> CICD
       - "main"
       
 jobs:
