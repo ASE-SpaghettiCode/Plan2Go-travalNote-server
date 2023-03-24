@@ -53,8 +53,8 @@ tasks.named('test') {
 
 sonarqube {
 	properties {
-		property "sonar.projectKey", "ASE-SpaghettiCode_Plan2Go-travalNote-server"
-		property "sonar.organization", "ASE-SpaghettiCode"
+		property "sonar.projectKey", "ase-spaghetticode"
+		property "sonar.organization", "ase-spaghetticode"
 		property "sonar.host.url", "https://sonarcloud.io"
 		property "sonar.coverage.jacoco.xmlReportPaths", ["$buildDir/jacocoReportDir/test/jacocoTestReport.xml"]
 		property "sonar.cpd.exclusions", "**/entity/*.java,**/rest/dto/*.java"
