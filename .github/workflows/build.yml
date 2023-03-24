@@ -3,11 +3,16 @@ name: build
 on:
   push:
     branches:
-      - "main"
+      - "CICD"
       
 jobs:
-  docker_SonarQube:
+  docker_sonarqube:
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -27,10 +32,15 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/travelNoteServer:latest
-          
-      - name: SonarQube
-        uses: sonarsource/sonarcloud-github-action@master
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/travel_note_server:latest
+
+      - name: Change wrapper permissions
+        run: chmod +x ./gradlew
+
+      - name: test the project and upload test report -> sonarqube
+        run: ./gradlew test jacocoTestReport sonarqube --info
+
+
   
     
 

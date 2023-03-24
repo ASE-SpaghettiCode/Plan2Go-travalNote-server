@@ -2,6 +2,8 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.9'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'jacoco'
+	id 'org.sonarqube' version "4.0.0.2929"
 }
 
 group = 'ASE-SpaghettiCode'
@@ -29,6 +31,33 @@ dependencies {
 	testImplementation 'io.projectreactor:reactor-test'
 }
 
+test {
+	finalizedBy jacocoTestReport // report is always generated after tests run
+}
+jacocoTestReport {
+	dependsOn test // tests are required to run before generating the report
+}
+jacocoTestReport {
+	group = "Reporting"
+	reports {
+		xml.enabled true
+		csv.enabled false
+		html.destination file("${buildDir}/jacocoHtml")
+	}
+}
+
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+
+sonarqube {
+	properties {
+		property "sonar.projectKey", "ase-spaghetticode"
+		property "sonar.organization", "ase-spaghetticode"
+		property "sonar.host.url", "https://sonarcloud.io"
+		property "sonar.branch.name", "main"
+		property "sonar.coverage.jacoco.xmlReportPaths", ["$buildDir/jacocoReportDir/test/jacocoTestReport.xml"]
+		property "sonar.cpd.exclusions", "**/entity/*.java,**/rest/dto/*.java"
+	}
 }

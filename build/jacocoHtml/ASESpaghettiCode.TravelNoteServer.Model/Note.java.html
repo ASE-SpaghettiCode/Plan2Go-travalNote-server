@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Note.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TravelNoteServer</a> &gt; <a href="index.source.html" class="el_package">ASESpaghettiCode.TravelNoteServer.Model</a> &gt; <span class="el_source">Note.java</span></div><h1>Note.java</h1><pre class="source lang-java linenums">package ASESpaghettiCode.TravelNoteServer.Model;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.mongodb.lang.Nullable;
+import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
+
+<span class="nc bnc" id="L11" title="All 104 branches missed.">@Data</span>
+//@Document
+//@JsonInclude(JsonInclude.Include.NON_NULL)
+public class Note {
+    @Id
+    private String noteId;
+
+    private String noteTitle;
+
+    private String authorId;
+
+    private String coverImage;
+
+    private String date;
+
+    private Integer duration;
+
+    private Double rating;
+
+    private Integer expense;
+
+    private Integer numTravelers;
+
+    private String targetGroup;
+
+    private String destination;
+
+    private Double[] coordinates;
+
+    private Object editorData;
+
+
+<span class="nc" id="L43">    public Note(String noteTitle, String authorId, String coverImage, String date, Integer duration, Double rating, Integer expense, Integer numTravelers, String targetGroup, String destination, Double[] coordinates, Object editorData) {</span>
+<span class="nc" id="L44">        this.noteTitle = noteTitle;</span>
+<span class="nc" id="L45">        this.authorId = authorId;</span>
+<span class="nc" id="L46">        this.coverImage = coverImage;</span>
+<span class="nc" id="L47">        this.date = date;</span>
+<span class="nc" id="L48">        this.duration = duration;</span>
+<span class="nc" id="L49">        this.rating = rating;</span>
+<span class="nc" id="L50">        this.expense = expense;</span>
+<span class="nc" id="L51">        this.numTravelers = numTravelers;</span>
+<span class="nc" id="L52">        this.targetGroup = targetGroup;</span>
+<span class="nc" id="L53">        this.destination = destination;</span>
+<span class="nc" id="L54">        this.coordinates = coordinates;</span>
+<span class="nc" id="L55">        this.editorData = editorData;</span>
+<span class="nc" id="L56">    }</span>
+
+    public String getNoteId() {
+<span class="nc" id="L59">        return noteId;</span>
+    }
+
+    public void setNoteId(String noteId) {
+<span class="nc" id="L63">        this.noteId = noteId;</span>
+<span class="nc" id="L64">    }</span>
+
+    public String getNoteTitle() {
+<span class="nc" id="L67">        return noteTitle;</span>
+    }
+
+    public void setNoteTitle(String noteTitle) {
+<span class="nc" id="L71">        this.noteTitle = noteTitle;</span>
+<span class="nc" id="L72">    }</span>
+
+    public String getAuthorId() {
+<span class="nc" id="L75">        return authorId;</span>
+    }
+
+    public void setAuthorId(String authorId) {
+<span class="nc" id="L79">        this.authorId = authorId;</span>
+<span class="nc" id="L80">    }</span>
+
+    public String getCoverImage() {
+<span class="nc" id="L83">        return coverImage;</span>
+    }
+
+    public void setCoverImage(String coverImage) {
+<span class="nc" id="L87">        this.coverImage = coverImage;</span>
+<span class="nc" id="L88">    }</span>
+
+    public String getDate() {
+<span class="nc" id="L91">        return date;</span>
+    }
+
+    public void setDate(String date) {
+<span class="nc" id="L95">        this.date = date;</span>
+<span class="nc" id="L96">    }</span>
+
+    public Integer getDuration() {
+<span class="nc" id="L99">        return duration;</span>
+    }
+
+    public void setDuration(Integer duration) {
+<span class="nc" id="L103">        this.duration = duration;</span>
+<span class="nc" id="L104">    }</span>
+
+    public Double getRating() {
+<span class="nc" id="L107">        return rating;</span>
+    }
+
+    public void setRating(Double rating) {
+<span class="nc" id="L111">        this.rating = rating;</span>
+<span class="nc" id="L112">    }</span>
+
+    public Integer getExpense() {
+<span class="nc" id="L115">        return expense;</span>
+    }
+
+    public void setExpense(Integer expense) {
+<span class="nc" id="L119">        this.expense = expense;</span>
+<span class="nc" id="L120">    }</span>
+
+    public Integer getNumTravelers() {
+<span class="nc" id="L123">        return numTravelers;</span>
+    }
+
+    public void setNumTravelers(Integer numTravelers) {
+<span class="nc" id="L127">        this.numTravelers = numTravelers;</span>
+<span class="nc" id="L128">    }</span>
+
+    public String getTargetGroup() {
+<span class="nc" id="L131">        return targetGroup;</span>
+    }
+
+    public void setTargetGroup(String targetGroup) {
+<span class="nc" id="L135">        this.targetGroup = targetGroup;</span>
+<span class="nc" id="L136">    }</span>
+
+    public String getDestination() {
+<span class="nc" id="L139">        return destination;</span>
+    }
+
+    public void setDestination(String destination) {
+<span class="nc" id="L143">        this.destination = destination;</span>
+<span class="nc" id="L144">    }</span>
+
+    public Double[] getCoordinates() {
+<span class="nc" id="L147">        return coordinates;</span>
+    }
+
+    public void setCoordinates(Double[] coordinates) {
+<span class="nc" id="L151">        this.coordinates = coordinates;</span>
+<span class="nc" id="L152">    }</span>
+
+    public Object getEditorData() {
+<span class="nc" id="L155">        return editorData;</span>
+    }
+
+
+    public void setEditorData(Object editorData) {
+<span class="nc" id="L160">        this.editorData = editorData;</span>
+<span class="nc" id="L161">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

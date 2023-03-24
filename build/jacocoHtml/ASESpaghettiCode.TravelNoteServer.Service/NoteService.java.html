@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NoteService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TravelNoteServer</a> &gt; <a href="index.source.html" class="el_package">ASESpaghettiCode.TravelNoteServer.Service</a> &gt; <span class="el_source">NoteService.java</span></div><h1>NoteService.java</h1><pre class="source lang-java linenums">package ASESpaghettiCode.TravelNoteServer.Service;
+
+import ASESpaghettiCode.TravelNoteServer.Model.Note;
+import ASESpaghettiCode.TravelNoteServer.Repository.NoteRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
+@Service
+public class NoteService {
+
+    private final NoteRepository noteRepository;
+
+<span class="fc" id="L20">    public NoteService(NoteRepository noteRepository) {</span>
+<span class="fc" id="L21">        this.noteRepository = noteRepository;</span>
+<span class="fc" id="L22">    }</span>
+
+    public void save(Note note){
+<span class="nc" id="L25">        noteRepository.save(note);</span>
+<span class="nc" id="L26">    }</span>
+
+    public List&lt;Note&gt; findAllNotes() {
+<span class="nc" id="L29">        return this.noteRepository.findAll();</span>
+    }
+
+    public Note createNote(Note newNote){
+<span class="nc" id="L33">        return noteRepository.save(newNote);</span>
+    }
+
+    public void deleteNote(String noteId, String userId) {
+<span class="nc" id="L37">        Optional&lt;Note&gt; targetNote = noteRepository.findById(noteId);</span>
+<span class="nc bnc" id="L38" title="All 2 branches missed.">        if (targetNote.isEmpty()) {</span>
+<span class="nc" id="L39">            throw new ResponseStatusException(HttpStatus.NOT_FOUND, &quot;Note is not found!&quot;);</span>
+<span class="nc bnc" id="L40" title="All 2 branches missed.">        } else if (!Objects.equals(userId, targetNote.get().getAuthorId())) {</span>
+<span class="nc" id="L41">            throw new ResponseStatusException(HttpStatus.FORBIDDEN, &quot;You cannot delete this note!&quot;);</span>
+        }
+        else {
+<span class="nc" id="L44">            noteRepository.delete(noteRepository.findById(noteId).get());</span>
+        }
+<span class="nc" id="L46">    }</span>
+
+    public List&lt;Note&gt; findNotesById(String userId) {
+<span class="nc" id="L49">        List&lt;Note&gt; listOfNotes = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">        for (Note note : noteRepository.findAll()) {</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">            if (Objects.equals(note.getNoteId(), userId)){</span>
+<span class="nc" id="L52">                listOfNotes.add(note);</span>
+            }
+<span class="nc" id="L54">        }</span>
+<span class="nc" id="L55">        return listOfNotes;</span>
+    }
+    public Note findNoteById(String noteId) {
+<span class="nc" id="L58">        Optional&lt;Note&gt; targetNote = noteRepository.findById(noteId);</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">        if (targetNote.isEmpty()) {</span>
+<span class="nc" id="L60">            throw new ResponseStatusException(HttpStatus.NOT_FOUND, &quot;Note is not found!&quot;);</span>
+        }
+<span class="nc" id="L62">        return targetNote.get();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
