@@ -35,11 +35,11 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/travel_note_server:latest
 
-      - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@master
+      - name: test the project and upload test report -> sonarqube
+        run: ./gradlew test jacocoTestReport sonarqube --info
 
-#      - name: test the project and upload test report -> sonarqube
-#        run: ./gradlew test jacocoTestReport sonarqube --info
+#      - name: SonarCloud Scan
+#        uses: sonarsource/sonarcloud-github-action@master
 
 
   
