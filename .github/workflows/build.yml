@@ -9,9 +9,9 @@ on:
 jobs:
   docker_sonarqube:
     runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#    env:
+#      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
 
     steps:
@@ -35,8 +35,8 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/travel_note_server:latest
 
-      - name: Change wrapper permissions
-        run: chmod +x ./gradlew
+#      - name: Change wrapper permissions
+#        run: chmod +x ./gradlew
 
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
