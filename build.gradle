@@ -50,14 +50,14 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
-//
-//sonarqube {
-//	properties {
-//		property "sonar.projectKey", "ase-spaghetticode"
-//		property "sonar.organization", "ase-spaghetticode"
-//		property "sonar.host.url", "https://sonarcloud.io"
-//		property "sonar.branch.name", "main"
+
+sonarqube {
+	properties {
+		property "sonar.projectKey", "ase-spaghetticode_travelNoteServer"
+		property "sonar.organization", "ase-spaghetticode"
+		property "sonar.host.url", "https://sonarcloud.io"
+		property "sonar.branch.name", "main"
 //		property "sonar.coverage.jacoco.xmlReportPaths", ["$buildDir/jacocoReportDir/test/jacocoTestReport.xml"]
 //		property "sonar.cpd.exclusions", "**/entity/*.java,**/rest/dto/*.java"
-//	}
-//}
+	}
+}
