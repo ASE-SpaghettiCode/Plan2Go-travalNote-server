@@ -30,7 +30,6 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
 }
-
 test {
 	useJUnitPlatform()
 	testLogging.showStandardStreams = true
@@ -42,7 +41,6 @@ jacoco {
 	toolVersion = "0.8.6"
 	reportsDirectory = file("$buildDir/jacocoReportDir")
 }
-
 
 jacocoTestReport {
 	dependsOn test // tests are required to run before generating the report
@@ -57,9 +55,6 @@ jacocoTestReport {
 	}
 }
 
-//tasks.named('test') {
-//	useJUnitPlatform()
-//}
 File secretPropsFile = file('./local.properties')
 if (secretPropsFile.exists()) {
 	Properties p = new Properties()
@@ -68,7 +63,6 @@ if (secretPropsFile.exists()) {
 		ext[name] = value
 	}
 }
-
 
 sonarqube {
 	properties {
