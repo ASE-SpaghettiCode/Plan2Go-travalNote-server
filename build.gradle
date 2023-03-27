@@ -72,7 +72,7 @@ if (secretPropsFile.exists()) {
 
 sonarqube {
 	properties {
-		property "sonar.projectKey", "ase-spaghetticode_travelNoteServer"
+		property "sonar.projectKey", "ASE-SpaghettiCode_Plan2Go-travalNote-server"
 		property "sonar.organization", "ase-spaghetticode"
 		property "sonar.host.url", "https://sonarcloud.io"
 		property "sonar.branch.name", "main"
