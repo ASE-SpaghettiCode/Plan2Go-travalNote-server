@@ -84,3 +84,4 @@ sonarqube {
 project.tasks["sonarqube"].dependsOn {
 	test
 }
+
