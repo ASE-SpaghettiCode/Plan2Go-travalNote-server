@@ -36,7 +36,7 @@ public class NoteController {
     @GetMapping("users/{userId}/notes")
     @ResponseStatus(HttpStatus.OK)
     public List<Note> findNotesByUser(@PathVariable String userId) {
-        return noteService.findNotesById(userId);
+        return noteService.findNotesByUserId(userId);
     }
 
     @PostMapping("/notes")
