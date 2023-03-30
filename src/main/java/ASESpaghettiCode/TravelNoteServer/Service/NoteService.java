@@ -30,6 +30,8 @@ public class NoteService {
     }
 
     public Note createNote(Note newNote){
+        List<String> initialLikedUsers = new ArrayList<>();
+        newNote.setLikedUsers(initialLikedUsers);
         return noteRepository.save(newNote);
     }
 
@@ -83,5 +85,26 @@ public class NoteService {
             targetNote.get().setEditorData(note.getEditorData());
             noteRepository.save(targetNote.get());
         }
+    }
+
+    public void userLikesNote(String userId, String noteId) {
+        Optional<Note> targetNote = noteRepository.findById(noteId);
+        if (targetNote.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The travel note is not found!");
+        }
+        targetNote.get().addLikedUsers(userId);
+        noteRepository.save(targetNote.get());
+    }
+
+    public void userUnlikesNote(String userId, String noteId) {
+        Optional<Note> targetNote = noteRepository.findById(noteId);
+        if (targetNote.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The travel note is not found!");
+        }
+        if (!targetNote.get().getLikedUsers().contains(userId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The user didn't like this travel note");
+        }
+        targetNote.get().removeLikedUsers(userId);
+        noteRepository.save(targetNote.get());
     }
 }

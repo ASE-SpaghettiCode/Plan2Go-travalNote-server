@@ -61,5 +61,15 @@ public class NoteController {
         return "the note info page of note "+noteId;
     }
 
+    @PostMapping("users/{userId}/likes/notes/{noteId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void userLikesNote(@PathVariable String userId, @PathVariable String noteId) {
+        noteService.userLikesNote(userId, noteId);
+    }
 
+    @DeleteMapping("users/{userId}/likes/notes/{noteId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void userUnlikesNote(@PathVariable String userId, @PathVariable String noteId) {
+        noteService.userUnlikesNote(userId, noteId);
+    }
 }

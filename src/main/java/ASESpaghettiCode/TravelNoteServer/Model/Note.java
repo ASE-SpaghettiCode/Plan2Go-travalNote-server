@@ -39,6 +39,8 @@ public class Note {
 
     private Object editorData;
 
+    private List<String> likedUsers;
+
 
     public Note(String noteTitle, String authorId, String coverImage, String date, Integer duration, Double rating, Integer expense, Integer numTravelers, String targetGroup, String destination, Double[] coordinates, Object editorData) {
         this.noteTitle = noteTitle;
@@ -155,8 +157,22 @@ public class Note {
         return editorData;
     }
 
-
     public void setEditorData(Object editorData) {
         this.editorData = editorData;
+    }
+
+    public List<String> getLikedUsers() {
+        return this.likedUsers;
+    }
+
+    public void setLikedUsers(List<String> initialList) {
+        this.likedUsers = initialList;
+    }
+    public void addLikedUsers(String userId) {
+        this.likedUsers.add(userId);
+    }
+
+    public void removeLikedUsers(String userId) {
+        this.likedUsers.remove(userId);
     }
 }
