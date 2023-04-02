@@ -91,9 +91,9 @@ public class NoteController {
     @ResponseStatus(HttpStatus.OK)
     public List<Note> findFollowingNotes(@PathVariable String userId) {
         // get all the authorId that a user is following
-        List<User> following = restTemplate.getForObject(UserServerLocation + "/users/" + userId + "/followings", List.class);
-
-        List<String> followingUserId = following.stream().map(User::getUserId).collect(Collectors.toList());
+        String path = UserServerLocation + "/users/" + userId + "/followings";
+        System.out.printf(path);
+        List<String> followingUserId = restTemplate.getForObject(path, List.class);
         // find all notes with the followingUserId
         return noteService.findNotesOfFollowees(followingUserId);
     }

@@ -35,15 +35,6 @@ public class NoteService {
         return this.noteRepository.findAll();
     }
 
-
-    public List<Note> findNotesOfFollowees(List<String> followingUserId) {
-        Optional<List<Note>> sortedList = Optional.ofNullable(noteRepository.findByUserIdListInOrderByCreatedDateAsc(followingUserId, Sort.by(Sort.Direction.ASC, "createdTime")));
-        if (sortedList.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User haven't follow anyone!");
-        }
-        return sortedList.get();
-    }
-
     public Note createNote(Note newNote){
         List<String> initialLikedUsers = new ArrayList<>();
         newNote.setLikedUsers(initialLikedUsers);
@@ -121,5 +112,13 @@ public class NoteService {
         }
         targetNote.get().removeLikedUsers(userId);
         noteRepository.save(targetNote.get());
+    }
+
+    public List<Note> findNotesOfFollowees(List<String> followingUserId) {
+        Optional<List<Note>> sortedList = Optional.ofNullable(noteRepository.findByUserIdListInOrderByCreatedDateAsc(followingUserId, Sort.by(Sort.Direction.DESC, "createdTime")));
+        if (sortedList.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User haven't follow anyone!");
+        }
+        return sortedList.get();
     }
 }
