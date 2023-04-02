@@ -107,8 +107,10 @@ public class NoteService {
         if (targetNote.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The travel note is not found!");
         }
-        targetNote.get().addLikedUsers(userId);
-        noteRepository.save(targetNote.get());
+        if(!targetNote.get().getLikedUsers().contains(userId)) {
+            targetNote.get().addLikedUsers(userId);
+            noteRepository.save(targetNote.get());
+        }
     }
 
     public void userUnlikesNote(String userId, String noteId) {
