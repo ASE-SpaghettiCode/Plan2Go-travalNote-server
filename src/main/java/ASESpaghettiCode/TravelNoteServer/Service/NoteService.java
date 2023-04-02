@@ -1,10 +1,14 @@
 package ASESpaghettiCode.TravelNoteServer.Service;
 
 import ASESpaghettiCode.TravelNoteServer.Model.Note;
+import ASESpaghettiCode.TravelNoteServer.Model.User;
 import ASESpaghettiCode.TravelNoteServer.Repository.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
@@ -14,6 +18,8 @@ import java.util.Optional;
 
 @Service
 public class NoteService {
+
+
 
     private final NoteRepository noteRepository;
 
@@ -27,6 +33,15 @@ public class NoteService {
 
     public List<Note> findAllNotes() {
         return this.noteRepository.findAll();
+    }
+
+
+    public List<Note> findNotesOfFollowees(List<String> followingUserId) {
+        Optional<List<Note>> sortedList = Optional.ofNullable(noteRepository.findByUserIdListInOrderByCreatedDateAsc(followingUserId, Sort.by(Sort.Direction.ASC, "createdTime")));
+        if (sortedList.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User haven't follow anyone!");
+        }
+        return sortedList.get();
     }
 
     public Note createNote(Note newNote){

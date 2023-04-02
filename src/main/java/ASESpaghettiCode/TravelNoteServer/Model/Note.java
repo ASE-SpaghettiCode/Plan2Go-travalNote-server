@@ -6,6 +6,8 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -41,6 +43,8 @@ public class Note {
 
     private List<String> likedUsers;
 
+    private LocalDateTime createdTime;
+
 
     public Note(String noteTitle, String authorId, String coverImage, String date, Integer duration, Double rating, Integer expense, Integer numTravelers, String targetGroup, String destination, Double[] coordinates, Object editorData) {
         this.noteTitle = noteTitle;
@@ -55,6 +59,7 @@ public class Note {
         this.destination = destination;
         this.coordinates = coordinates;
         this.editorData = editorData;
+        this.createdTime = LocalDateTime.now();
     }
 
     public String getNoteId() {
@@ -168,11 +173,20 @@ public class Note {
     public void setLikedUsers(List<String> initialList) {
         this.likedUsers = initialList;
     }
+
     public void addLikedUsers(String userId) {
         this.likedUsers.add(userId);
     }
 
     public void removeLikedUsers(String userId) {
         this.likedUsers.remove(userId);
+    }
+
+    public LocalDateTime getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(LocalDateTime createdTime) {
+        this.createdTime = createdTime;
     }
 }

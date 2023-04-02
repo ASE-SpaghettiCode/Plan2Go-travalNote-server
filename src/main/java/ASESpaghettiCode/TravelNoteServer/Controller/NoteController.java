@@ -1,13 +1,18 @@
 package ASESpaghettiCode.TravelNoteServer.Controller;
 
 import ASESpaghettiCode.TravelNoteServer.Model.Note;
+import ASESpaghettiCode.TravelNoteServer.Model.User;
 import ASESpaghettiCode.TravelNoteServer.Repository.NoteRepository;
 import ASESpaghettiCode.TravelNoteServer.Service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -15,6 +20,15 @@ public class NoteController {
 
     private NoteService noteService;
     private NoteRepository noteRepository;
+
+    @Value("${UserServerLocation}")
+    private String UserServerLocation;
+
+    @Autowired
+    private RestTemplate restTemplate = new RestTemplateBuilder()
+            .errorHandler(new RestTemplateErrorHandler())
+            .build();
+
 
     NoteController(NoteRepository noteRepository, NoteService noteService){
         this.noteRepository = noteRepository;
@@ -72,4 +86,16 @@ public class NoteController {
     public void userUnlikesNote(@PathVariable String userId, @PathVariable String noteId) {
         noteService.userUnlikesNote(userId, noteId);
     }
+
+    @GetMapping("/notes/following/{userId}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Note> findFollowingNotes(@PathVariable String userId) {
+        // get all the authorId that a user is following
+        List<User> following = restTemplate.getForObject(UserServerLocation + "/users/" + userId + "/followings", List.class);
+
+        List<String> followingUserId = following.stream().map(User::getUserId).collect(Collectors.toList());
+        // find all notes with the followingUserId
+        return noteService.findNotesOfFollowees(followingUserId);
+    }
+
 }
