@@ -21,6 +21,11 @@ public class NoteController {
     private NoteService noteService;
     private NoteRepository noteRepository;
 
+    NoteController(NoteRepository noteRepository, NoteService noteService){
+        this.noteRepository = noteRepository;
+        this.noteService = noteService;
+    }
+
     @Value("${UserServerLocation}")
     private String UserServerLocation;
 
@@ -29,11 +34,6 @@ public class NoteController {
             .errorHandler(new RestTemplateErrorHandler())
             .build();
 
-
-    NoteController(NoteRepository noteRepository, NoteService noteService){
-        this.noteRepository = noteRepository;
-        this.noteService = noteService;
-    }
 
     @GetMapping("/notes")
     @ResponseStatus(HttpStatus.OK)
@@ -91,9 +91,7 @@ public class NoteController {
     @ResponseStatus(HttpStatus.OK)
     public List<Note> findFollowingNotes(@PathVariable String userId) {
         // get all the authorId that a user is following
-        String path = UserServerLocation + "/users/" + userId + "/followings";
-        System.out.printf(path);
-        List<String> followingUserId = restTemplate.getForObject(path, List.class);
+        List<String> followingUserId = restTemplate.getForObject(UserServerLocation + "/users/" + userId + "/followings", List.class);
         // find all notes with the followingUserId
         return noteService.findNotesOfFollowees(followingUserId);
     }
