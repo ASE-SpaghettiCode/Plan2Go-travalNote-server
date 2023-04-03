@@ -1,13 +1,17 @@
 package ASESpaghettiCode.TravelNoteServer.Service;
 
+import ASESpaghettiCode.TravelNoteServer.Model.Comment;
 import ASESpaghettiCode.TravelNoteServer.Model.Note;
 import ASESpaghettiCode.TravelNoteServer.Model.User;
+import ASESpaghettiCode.TravelNoteServer.Repository.CommentRepository;
 import ASESpaghettiCode.TravelNoteServer.Repository.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -17,19 +21,18 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class NoteService {
 
-
-
     private final NoteRepository noteRepository;
+    private final CommentRepository commentRepository;
 
-    public NoteService(NoteRepository noteRepository) {
+    @Autowired
+    public NoteService(@Qualifier("noteRepository") NoteRepository noteRepository,@Qualifier("commentRepository") CommentRepository commentRepository) {
         this.noteRepository = noteRepository;
+        this.commentRepository = commentRepository;
     }
 
-    public void save(Note note){
-        noteRepository.save(note);
-    }
 
     public List<Note> findAllNotes() {
         return this.noteRepository.findAll();
@@ -38,6 +41,8 @@ public class NoteService {
     public Note createNote(Note newNote){
         List<String> initialLikedUsers = new ArrayList<>();
         newNote.setLikedUsers(initialLikedUsers);
+        List<String> initialCommentList = new ArrayList<>();
+        newNote.setCommentList(initialCommentList);
         return noteRepository.save(newNote);
     }
 
@@ -47,8 +52,17 @@ public class NoteService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Note is not found!");
         } else if (!Objects.equals(userId, targetNote.get().getAuthorId())) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You cannot delete this note!");
-        }
-        else {
+        }else {
+            // first delete all the comment afflicted in this node:
+            List<String> commentIdList = targetNote.get().getCommentList();
+            for (String commentId : commentIdList){
+                Optional<Comment> targetComment = commentRepository.findById(commentId);
+                if (targetComment.isEmpty()) {
+                    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Comment is not found!");
+                }
+                commentRepository.delete(targetComment.get());
+            }
+            // then delete the node
             noteRepository.delete(noteRepository.findById(noteId).get());
         }
     }

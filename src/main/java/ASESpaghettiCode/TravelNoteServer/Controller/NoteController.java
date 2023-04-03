@@ -70,6 +70,7 @@ public class NoteController {
     public void updateNote(@PathVariable String noteId, @PathVariable String userId, @RequestBody Note note) {
         noteService.updateNote(noteId, userId, note);
     }
+
     @RequestMapping("/notes/{noteId}")
     public String getNote(@PathVariable("noteId") String noteId){
         return "the note info page of note "+noteId;

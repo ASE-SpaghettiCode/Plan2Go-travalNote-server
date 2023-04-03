@@ -45,6 +45,8 @@ public class Note {
 
     private LocalDateTime createdTime;
 
+    private List<String> commentList;
+
 
     public Note(String noteTitle, String authorId, String coverImage, String date, Integer duration, Double rating, Integer expense, Integer numTravelers, String targetGroup, String destination, Double[] coordinates, Object editorData) {
         this.noteTitle = noteTitle;
@@ -189,4 +191,22 @@ public class Note {
     public void setCreatedTime(LocalDateTime createdTime) {
         this.createdTime = createdTime;
     }
+
+    public List<String> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<String> commentList) {
+        this.commentList = commentList;
+    }
+
+    public void addComment(String commentId) {
+        this.commentList.add(commentId);
+    }
+
+    public void removeComment(String commentId) {
+        this.commentList.remove(commentId);
+    }
+
+
 }

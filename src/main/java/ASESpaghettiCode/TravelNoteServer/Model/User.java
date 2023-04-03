@@ -1,5 +1,7 @@
 package ASESpaghettiCode.TravelNoteServer.Model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -24,6 +26,21 @@ public class User{
         this.username=username;
         this.token=token;
     }
+
+    @JsonCreator
+    public static User create(@JsonProperty("userId") String userId,
+                              @JsonProperty("username") String username,
+                              @JsonProperty("password") String password,
+                              @JsonProperty("token") String token,
+                              @JsonProperty("intro") String intro,
+                              @JsonProperty("imageLink") String imageLink){
+        User user = new User(username,password,token);
+        user.setUserId(userId);
+        user.setIntro(intro);
+        user.setImageLink(imageLink);
+        return user;
+    }
+
 
     public String getUserId() {
         return userId;

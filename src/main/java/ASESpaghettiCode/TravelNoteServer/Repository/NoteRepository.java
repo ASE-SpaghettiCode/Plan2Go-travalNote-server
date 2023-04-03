@@ -11,9 +11,11 @@ import java.util.Optional;
 
 @Repository
 public interface NoteRepository extends MongoRepository<Note, String> {
-//    public List<Note> findAll(Sort sort);
-    public Optional<Note> findById(String noteId);
+
+//    List<Note> findAll(Sort sort);
+
+    Optional<Note> findById(String noteId);
 
     @Query("{'authorId': {$in: ?0}}")
-    public List<Note>findByUserIdListInOrderByCreatedDateAsc(List<String> followingUserId, Sort sort);
+    List<Note>findByUserIdListInOrderByCreatedDateAsc(List<String> followingUserId, Sort sort);
 }
