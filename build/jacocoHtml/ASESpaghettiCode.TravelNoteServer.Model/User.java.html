@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>User.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TravelNoteServer</a> &gt; <a href="index.source.html" class="el_package">ASESpaghettiCode.TravelNoteServer.Model</a> &gt; <span class="el_source">User.java</span></div><h1>User.java</h1><pre class="source lang-java linenums">package ASESpaghettiCode.TravelNoteServer.Model;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
+
+<span class="nc bnc" id="L11" title="All 70 branches missed.">@Data</span>
+@Document
+public class User{
+    @Id
+    public String userId;
+    public String username;
+    public String password;
+    public String token;
+    public String intro;
+    public String imageLink;
+    public List&lt;String&gt; followers;
+    public List&lt;String&gt; followings;
+
+<span class="nc" id="L24">    public User(String username, String password, String token){</span>
+<span class="nc" id="L25">        this.password=password;</span>
+<span class="nc" id="L26">        this.username=username;</span>
+<span class="nc" id="L27">        this.token=token;</span>
+<span class="nc" id="L28">    }</span>
+
+    @JsonCreator
+    public static User create(@JsonProperty(&quot;userId&quot;) String userId,
+                              @JsonProperty(&quot;username&quot;) String username,
+                              @JsonProperty(&quot;password&quot;) String password,
+                              @JsonProperty(&quot;token&quot;) String token,
+                              @JsonProperty(&quot;intro&quot;) String intro,
+                              @JsonProperty(&quot;imageLink&quot;) String imageLink){
+<span class="nc" id="L37">        User user = new User(username,password,token);</span>
+<span class="nc" id="L38">        user.setUserId(userId);</span>
+<span class="nc" id="L39">        user.setIntro(intro);</span>
+<span class="nc" id="L40">        user.setImageLink(imageLink);</span>
+<span class="nc" id="L41">        return user;</span>
+    }
+
+
+    public String getUserId() {
+<span class="nc" id="L46">        return userId;</span>
+    }
+
+    public String getPassword() {
+<span class="nc" id="L50">        return password;</span>
+    }
+
+    public String getUsername(){
+<span class="nc" id="L54">        return username;</span>
+    }
+
+    public void setUserId(String userId) {
+<span class="nc" id="L58">        this.userId = userId;</span>
+<span class="nc" id="L59">    }</span>
+
+    public void setPassword(String password) {
+<span class="nc" id="L62">        this.password = password;</span>
+<span class="nc" id="L63">    }</span>
+
+    public void setUsername(String username) {
+<span class="nc" id="L66">        this.username = username;</span>
+<span class="nc" id="L67">    }</span>
+
+    public String getToken() {
+<span class="nc" id="L70">        return token;</span>
+    }
+
+    public void setToken(String token) {
+<span class="nc" id="L74">        this.token = token;</span>
+<span class="nc" id="L75">    }</span>
+
+    public String getIntro(){
+<span class="nc" id="L78">        return intro;</span>
+    }
+
+    public void setIntro(String intro) {
+<span class="nc" id="L82">        this.intro = intro;</span>
+<span class="nc" id="L83">    }</span>
+
+    public void setImageLink(String imageLink) {
+<span class="nc" id="L86">        this.imageLink = imageLink;</span>
+<span class="nc" id="L87">    }</span>
+
+    public String getImageLink() {
+<span class="nc" id="L90">        return imageLink;</span>
+    }
+
+    public List&lt;String&gt; getFollowers() {
+<span class="nc" id="L94">        return this.followers;</span>
+    }
+
+    public void setFollowers(List&lt;String&gt; initialList) {
+<span class="nc" id="L98">        this.followers = initialList;</span>
+<span class="nc" id="L99">    }</span>
+
+    public void addFollowers(String userId) {
+<span class="nc" id="L102">        this.followers.add(userId);</span>
+<span class="nc" id="L103">    }</span>
+
+    public void removeFollowers(String userId) {
+<span class="nc" id="L106">        this.followers.remove(userId);</span>
+<span class="nc" id="L107">    }</span>
+
+    public List&lt;String&gt; getFollowings() {
+<span class="nc" id="L110">        return this.followings;</span>
+    }
+
+    public void setFollowings(List&lt;String&gt; initialList) {
+<span class="nc" id="L114">        this.followings = initialList;</span>
+<span class="nc" id="L115">    }</span>
+
+    public void addFollowings(String userId) {
+<span class="nc" id="L118">        this.followings.add(userId);</span>
+<span class="nc" id="L119">    }</span>
+
+    public void removeFollowings(String userId) {
+<span class="nc" id="L122">        this.followings.remove(userId);</span>
+<span class="nc" id="L123">    }</span>
+
+    @Override
+    public String toString() {
+<span class="nc" id="L127">        return &quot;User{&quot; +</span>
+                &quot;id='&quot; + userId + '\'' +
+                &quot;, username='&quot; + username + '\'' +
+                &quot;, password=&quot; + password+'\''+
+                &quot;, intro=&quot; + intro +'}';
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

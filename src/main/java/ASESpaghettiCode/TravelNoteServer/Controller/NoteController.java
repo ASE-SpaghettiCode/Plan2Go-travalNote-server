@@ -59,7 +59,7 @@ public class NoteController {
         return noteService.createNote(newNote);
     }
 
-    @DeleteMapping("/users/{userId}/notes/{noteId}")
+    @DeleteMapping("/users/{userId}/delete/notes/{noteId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteNote(@PathVariable String noteId, @PathVariable String userId) {
         noteService.deleteNote(noteId, userId);

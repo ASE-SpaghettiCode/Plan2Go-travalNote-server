@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NoteService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TravelNoteServer</a> &gt; <a href="index.source.html" class="el_package">ASESpaghettiCode.TravelNoteServer.Service</a> &gt; <span class="el_source">NoteService.java</span></div><h1>NoteService.java</h1><pre class="source lang-java linenums">package ASESpaghettiCode.TravelNoteServer.Service;
 
+import ASESpaghettiCode.TravelNoteServer.Model.Comment;
 import ASESpaghettiCode.TravelNoteServer.Model.Note;
+import ASESpaghettiCode.TravelNoteServer.Model.User;
+import ASESpaghettiCode.TravelNoteServer.Repository.CommentRepository;
 import ASESpaghettiCode.TravelNoteServer.Repository.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
@@ -13,53 +21,121 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class NoteService {
 
     private final NoteRepository noteRepository;
+    private final CommentRepository commentRepository;
 
-<span class="fc" id="L20">    public NoteService(NoteRepository noteRepository) {</span>
-<span class="fc" id="L21">        this.noteRepository = noteRepository;</span>
-<span class="fc" id="L22">    }</span>
+    @Autowired
+<span class="fc" id="L31">    public NoteService(@Qualifier(&quot;noteRepository&quot;) NoteRepository noteRepository,@Qualifier(&quot;commentRepository&quot;) CommentRepository commentRepository) {</span>
+<span class="fc" id="L32">        this.noteRepository = noteRepository;</span>
+<span class="fc" id="L33">        this.commentRepository = commentRepository;</span>
+<span class="fc" id="L34">    }</span>
 
-    public void save(Note note){
-<span class="nc" id="L25">        noteRepository.save(note);</span>
-<span class="nc" id="L26">    }</span>
 
     public List&lt;Note&gt; findAllNotes() {
-<span class="nc" id="L29">        return this.noteRepository.findAll();</span>
+<span class="nc" id="L38">        return this.noteRepository.findAll();</span>
     }
 
     public Note createNote(Note newNote){
-<span class="nc" id="L33">        return noteRepository.save(newNote);</span>
+<span class="nc" id="L42">        List&lt;String&gt; initialLikedUsers = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L43">        newNote.setLikedUsers(initialLikedUsers);</span>
+<span class="nc" id="L44">        List&lt;String&gt; initialCommentList = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L45">        newNote.setCommentList(initialCommentList);</span>
+<span class="nc" id="L46">        return noteRepository.save(newNote);</span>
     }
 
     public void deleteNote(String noteId, String userId) {
-<span class="nc" id="L37">        Optional&lt;Note&gt; targetNote = noteRepository.findById(noteId);</span>
-<span class="nc bnc" id="L38" title="All 2 branches missed.">        if (targetNote.isEmpty()) {</span>
-<span class="nc" id="L39">            throw new ResponseStatusException(HttpStatus.NOT_FOUND, &quot;Note is not found!&quot;);</span>
-<span class="nc bnc" id="L40" title="All 2 branches missed.">        } else if (!Objects.equals(userId, targetNote.get().getAuthorId())) {</span>
-<span class="nc" id="L41">            throw new ResponseStatusException(HttpStatus.FORBIDDEN, &quot;You cannot delete this note!&quot;);</span>
+<span class="nc" id="L50">        Optional&lt;Note&gt; targetNote = noteRepository.findById(noteId);</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">        if (targetNote.isEmpty()) {</span>
+<span class="nc" id="L52">            throw new ResponseStatusException(HttpStatus.NOT_FOUND, &quot;Note is not found!&quot;);</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">        } else if (!Objects.equals(userId, targetNote.get().getAuthorId())) {</span>
+<span class="nc" id="L54">            throw new ResponseStatusException(HttpStatus.FORBIDDEN, &quot;You cannot delete this note!&quot;);</span>
+        }else {
+            // first delete all the comment afflicted in this node:
+<span class="nc" id="L57">            List&lt;String&gt; commentIdList = targetNote.get().getCommentList();</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">            for (String commentId : commentIdList){</span>
+<span class="nc" id="L59">                Optional&lt;Comment&gt; targetComment = commentRepository.findById(commentId);</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">                if (targetComment.isEmpty()) {</span>
+<span class="nc" id="L61">                    throw new ResponseStatusException(HttpStatus.NOT_FOUND, &quot;Comment is not found!&quot;);</span>
+                }
+<span class="nc" id="L63">                commentRepository.delete(targetComment.get());</span>
+<span class="nc" id="L64">            }</span>
+            // then delete the node
+<span class="nc" id="L66">            noteRepository.delete(noteRepository.findById(noteId).get());</span>
         }
-        else {
-<span class="nc" id="L44">            noteRepository.delete(noteRepository.findById(noteId).get());</span>
-        }
-<span class="nc" id="L46">    }</span>
+<span class="nc" id="L68">    }</span>
 
-    public List&lt;Note&gt; findNotesById(String userId) {
-<span class="nc" id="L49">        List&lt;Note&gt; listOfNotes = new ArrayList&lt;&gt;();</span>
-<span class="nc bnc" id="L50" title="All 2 branches missed.">        for (Note note : noteRepository.findAll()) {</span>
-<span class="nc bnc" id="L51" title="All 2 branches missed.">            if (Objects.equals(note.getNoteId(), userId)){</span>
-<span class="nc" id="L52">                listOfNotes.add(note);</span>
+    public List&lt;Note&gt; findNotesByUserId(String userId) {
+<span class="nc" id="L71">        List&lt;Note&gt; listOfNotes = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">        for (Note note : noteRepository.findAll()) {</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">            if (Objects.equals(note.getAuthorId(), userId)){</span>
+<span class="nc" id="L74">                listOfNotes.add(note);</span>
             }
-<span class="nc" id="L54">        }</span>
-<span class="nc" id="L55">        return listOfNotes;</span>
+<span class="nc" id="L76">        }</span>
+<span class="nc" id="L77">        return listOfNotes;</span>
     }
     public Note findNoteById(String noteId) {
-<span class="nc" id="L58">        Optional&lt;Note&gt; targetNote = noteRepository.findById(noteId);</span>
-<span class="nc bnc" id="L59" title="All 2 branches missed.">        if (targetNote.isEmpty()) {</span>
-<span class="nc" id="L60">            throw new ResponseStatusException(HttpStatus.NOT_FOUND, &quot;Note is not found!&quot;);</span>
+<span class="nc" id="L80">        Optional&lt;Note&gt; targetNote = noteRepository.findById(noteId);</span>
+<span class="nc bnc" id="L81" title="All 2 branches missed.">        if (targetNote.isEmpty()) {</span>
+<span class="nc" id="L82">            throw new ResponseStatusException(HttpStatus.NOT_FOUND, &quot;Note is not found!&quot;);</span>
         }
-<span class="nc" id="L62">        return targetNote.get();</span>
+<span class="nc" id="L84">        return targetNote.get();</span>
+    }
+
+    public void updateNote(String noteId, String userId, Note note) {
+<span class="nc" id="L88">        Optional&lt;Note&gt; targetNote = noteRepository.findById(noteId);</span>
+<span class="nc bnc" id="L89" title="All 2 branches missed.">        if (targetNote.isEmpty()) {</span>
+<span class="nc" id="L90">            throw new ResponseStatusException(HttpStatus.NOT_FOUND, &quot;Note is not found!&quot;);</span>
+<span class="nc bnc" id="L91" title="All 2 branches missed.">        } else if (!Objects.equals(userId, targetNote.get().getAuthorId())) {</span>
+<span class="nc" id="L92">            throw new ResponseStatusException(HttpStatus.FORBIDDEN, &quot;You cannot edit this note!&quot;);</span>
+        }
+        else {
+<span class="nc" id="L95">            targetNote.get().setNoteTitle(note.getNoteTitle());</span>
+<span class="nc" id="L96">            targetNote.get().setCoordinates(note.getCoordinates());</span>
+<span class="nc" id="L97">            targetNote.get().setCoverImage(note.getCoverImage());</span>
+<span class="nc" id="L98">            targetNote.get().setDate(note.getDate());</span>
+<span class="nc" id="L99">            targetNote.get().setDuration(note.getDuration());</span>
+<span class="nc" id="L100">            targetNote.get().setDestination(note.getDestination());</span>
+<span class="nc" id="L101">            targetNote.get().setExpense(note.getExpense());</span>
+<span class="nc" id="L102">            targetNote.get().setNumTravelers(note.getNumTravelers());</span>
+<span class="nc" id="L103">            targetNote.get().setRating(note.getRating());</span>
+<span class="nc" id="L104">            targetNote.get().setTargetGroup(note.getTargetGroup());</span>
+<span class="nc" id="L105">            targetNote.get().setEditorData(note.getEditorData());</span>
+<span class="nc" id="L106">            noteRepository.save(targetNote.get());</span>
+        }
+<span class="nc" id="L108">    }</span>
+
+    public void userLikesNote(String userId, String noteId) {
+<span class="nc" id="L111">        Optional&lt;Note&gt; targetNote = noteRepository.findById(noteId);</span>
+<span class="nc bnc" id="L112" title="All 2 branches missed.">        if (targetNote.isEmpty()) {</span>
+<span class="nc" id="L113">            throw new ResponseStatusException(HttpStatus.NOT_FOUND, &quot;The travel note is not found!&quot;);</span>
+        }
+<span class="nc bnc" id="L115" title="All 2 branches missed.">        if(!targetNote.get().getLikedUsers().contains(userId)) {</span>
+<span class="nc" id="L116">            targetNote.get().addLikedUsers(userId);</span>
+<span class="nc" id="L117">            noteRepository.save(targetNote.get());</span>
+        }
+<span class="nc" id="L119">    }</span>
+
+    public void userUnlikesNote(String userId, String noteId) {
+<span class="nc" id="L122">        Optional&lt;Note&gt; targetNote = noteRepository.findById(noteId);</span>
+<span class="nc bnc" id="L123" title="All 2 branches missed.">        if (targetNote.isEmpty()) {</span>
+<span class="nc" id="L124">            throw new ResponseStatusException(HttpStatus.NOT_FOUND, &quot;The travel note is not found!&quot;);</span>
+        }
+<span class="nc bnc" id="L126" title="All 2 branches missed.">        if (!targetNote.get().getLikedUsers().contains(userId)) {</span>
+<span class="nc" id="L127">            throw new ResponseStatusException(HttpStatus.NOT_FOUND, &quot;The user didn't like this travel note&quot;);</span>
+        }
+<span class="nc" id="L129">        targetNote.get().removeLikedUsers(userId);</span>
+<span class="nc" id="L130">        noteRepository.save(targetNote.get());</span>
+<span class="nc" id="L131">    }</span>
+
+    public List&lt;Note&gt; findNotesOfFollowees(List&lt;String&gt; followingUserId) {
+<span class="nc" id="L134">        Optional&lt;List&lt;Note&gt;&gt; sortedList = Optional.ofNullable(noteRepository.findByUserIdListInOrderByCreatedDateAsc(followingUserId, Sort.by(Sort.Direction.DESC, &quot;createdTime&quot;)));</span>
+<span class="nc bnc" id="L135" title="All 2 branches missed.">        if (sortedList.isEmpty()) {</span>
+<span class="nc" id="L136">            throw new ResponseStatusException(HttpStatus.NOT_FOUND, &quot;User haven't follow anyone!&quot;);</span>
+        }
+<span class="nc" id="L138">        return sortedList.get();</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

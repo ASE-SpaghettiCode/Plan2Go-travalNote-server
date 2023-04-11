@@ -6,9 +6,11 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+
+import java.time.LocalDateTime;
 import java.util.List;
 
-<span class="nc bnc" id="L11" title="All 104 branches missed.">@Data</span>
+<span class="nc bnc" id="L13" title="All 128 branches missed.">@Data</span>
 //@Document
 //@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Note {
@@ -39,125 +41,173 @@ public class Note {
 
     private Object editorData;
 
+    private List&lt;String&gt; likedUsers;
 
-<span class="nc" id="L43">    public Note(String noteTitle, String authorId, String coverImage, String date, Integer duration, Double rating, Integer expense, Integer numTravelers, String targetGroup, String destination, Double[] coordinates, Object editorData) {</span>
-<span class="nc" id="L44">        this.noteTitle = noteTitle;</span>
-<span class="nc" id="L45">        this.authorId = authorId;</span>
-<span class="nc" id="L46">        this.coverImage = coverImage;</span>
-<span class="nc" id="L47">        this.date = date;</span>
-<span class="nc" id="L48">        this.duration = duration;</span>
-<span class="nc" id="L49">        this.rating = rating;</span>
-<span class="nc" id="L50">        this.expense = expense;</span>
-<span class="nc" id="L51">        this.numTravelers = numTravelers;</span>
-<span class="nc" id="L52">        this.targetGroup = targetGroup;</span>
-<span class="nc" id="L53">        this.destination = destination;</span>
-<span class="nc" id="L54">        this.coordinates = coordinates;</span>
-<span class="nc" id="L55">        this.editorData = editorData;</span>
-<span class="nc" id="L56">    }</span>
+    private LocalDateTime createdTime;
+
+    private List&lt;String&gt; commentList;
+
+
+<span class="nc" id="L51">    public Note(String noteTitle, String authorId, String coverImage, String date, Integer duration, Double rating, Integer expense, Integer numTravelers, String targetGroup, String destination, Double[] coordinates, Object editorData) {</span>
+<span class="nc" id="L52">        this.noteTitle = noteTitle;</span>
+<span class="nc" id="L53">        this.authorId = authorId;</span>
+<span class="nc" id="L54">        this.coverImage = coverImage;</span>
+<span class="nc" id="L55">        this.date = date;</span>
+<span class="nc" id="L56">        this.duration = duration;</span>
+<span class="nc" id="L57">        this.rating = rating;</span>
+<span class="nc" id="L58">        this.expense = expense;</span>
+<span class="nc" id="L59">        this.numTravelers = numTravelers;</span>
+<span class="nc" id="L60">        this.targetGroup = targetGroup;</span>
+<span class="nc" id="L61">        this.destination = destination;</span>
+<span class="nc" id="L62">        this.coordinates = coordinates;</span>
+<span class="nc" id="L63">        this.editorData = editorData;</span>
+<span class="nc" id="L64">        this.createdTime = LocalDateTime.now();</span>
+<span class="nc" id="L65">    }</span>
 
     public String getNoteId() {
-<span class="nc" id="L59">        return noteId;</span>
+<span class="nc" id="L68">        return noteId;</span>
     }
 
     public void setNoteId(String noteId) {
-<span class="nc" id="L63">        this.noteId = noteId;</span>
-<span class="nc" id="L64">    }</span>
+<span class="nc" id="L72">        this.noteId = noteId;</span>
+<span class="nc" id="L73">    }</span>
 
     public String getNoteTitle() {
-<span class="nc" id="L67">        return noteTitle;</span>
+<span class="nc" id="L76">        return noteTitle;</span>
     }
 
     public void setNoteTitle(String noteTitle) {
-<span class="nc" id="L71">        this.noteTitle = noteTitle;</span>
-<span class="nc" id="L72">    }</span>
+<span class="nc" id="L80">        this.noteTitle = noteTitle;</span>
+<span class="nc" id="L81">    }</span>
 
     public String getAuthorId() {
-<span class="nc" id="L75">        return authorId;</span>
+<span class="nc" id="L84">        return authorId;</span>
     }
 
     public void setAuthorId(String authorId) {
-<span class="nc" id="L79">        this.authorId = authorId;</span>
-<span class="nc" id="L80">    }</span>
+<span class="nc" id="L88">        this.authorId = authorId;</span>
+<span class="nc" id="L89">    }</span>
 
     public String getCoverImage() {
-<span class="nc" id="L83">        return coverImage;</span>
+<span class="nc" id="L92">        return coverImage;</span>
     }
 
     public void setCoverImage(String coverImage) {
-<span class="nc" id="L87">        this.coverImage = coverImage;</span>
-<span class="nc" id="L88">    }</span>
+<span class="nc" id="L96">        this.coverImage = coverImage;</span>
+<span class="nc" id="L97">    }</span>
 
     public String getDate() {
-<span class="nc" id="L91">        return date;</span>
+<span class="nc" id="L100">        return date;</span>
     }
 
     public void setDate(String date) {
-<span class="nc" id="L95">        this.date = date;</span>
-<span class="nc" id="L96">    }</span>
+<span class="nc" id="L104">        this.date = date;</span>
+<span class="nc" id="L105">    }</span>
 
     public Integer getDuration() {
-<span class="nc" id="L99">        return duration;</span>
+<span class="nc" id="L108">        return duration;</span>
     }
 
     public void setDuration(Integer duration) {
-<span class="nc" id="L103">        this.duration = duration;</span>
-<span class="nc" id="L104">    }</span>
+<span class="nc" id="L112">        this.duration = duration;</span>
+<span class="nc" id="L113">    }</span>
 
     public Double getRating() {
-<span class="nc" id="L107">        return rating;</span>
+<span class="nc" id="L116">        return rating;</span>
     }
 
     public void setRating(Double rating) {
-<span class="nc" id="L111">        this.rating = rating;</span>
-<span class="nc" id="L112">    }</span>
+<span class="nc" id="L120">        this.rating = rating;</span>
+<span class="nc" id="L121">    }</span>
 
     public Integer getExpense() {
-<span class="nc" id="L115">        return expense;</span>
+<span class="nc" id="L124">        return expense;</span>
     }
 
     public void setExpense(Integer expense) {
-<span class="nc" id="L119">        this.expense = expense;</span>
-<span class="nc" id="L120">    }</span>
+<span class="nc" id="L128">        this.expense = expense;</span>
+<span class="nc" id="L129">    }</span>
 
     public Integer getNumTravelers() {
-<span class="nc" id="L123">        return numTravelers;</span>
+<span class="nc" id="L132">        return numTravelers;</span>
     }
 
     public void setNumTravelers(Integer numTravelers) {
-<span class="nc" id="L127">        this.numTravelers = numTravelers;</span>
-<span class="nc" id="L128">    }</span>
+<span class="nc" id="L136">        this.numTravelers = numTravelers;</span>
+<span class="nc" id="L137">    }</span>
 
     public String getTargetGroup() {
-<span class="nc" id="L131">        return targetGroup;</span>
+<span class="nc" id="L140">        return targetGroup;</span>
     }
 
     public void setTargetGroup(String targetGroup) {
-<span class="nc" id="L135">        this.targetGroup = targetGroup;</span>
-<span class="nc" id="L136">    }</span>
+<span class="nc" id="L144">        this.targetGroup = targetGroup;</span>
+<span class="nc" id="L145">    }</span>
 
     public String getDestination() {
-<span class="nc" id="L139">        return destination;</span>
+<span class="nc" id="L148">        return destination;</span>
     }
 
     public void setDestination(String destination) {
-<span class="nc" id="L143">        this.destination = destination;</span>
-<span class="nc" id="L144">    }</span>
+<span class="nc" id="L152">        this.destination = destination;</span>
+<span class="nc" id="L153">    }</span>
 
     public Double[] getCoordinates() {
-<span class="nc" id="L147">        return coordinates;</span>
+<span class="nc" id="L156">        return coordinates;</span>
     }
 
     public void setCoordinates(Double[] coordinates) {
-<span class="nc" id="L151">        this.coordinates = coordinates;</span>
-<span class="nc" id="L152">    }</span>
+<span class="nc" id="L160">        this.coordinates = coordinates;</span>
+<span class="nc" id="L161">    }</span>
 
     public Object getEditorData() {
-<span class="nc" id="L155">        return editorData;</span>
+<span class="nc" id="L164">        return editorData;</span>
     }
 
-
     public void setEditorData(Object editorData) {
-<span class="nc" id="L160">        this.editorData = editorData;</span>
-<span class="nc" id="L161">    }</span>
+<span class="nc" id="L168">        this.editorData = editorData;</span>
+<span class="nc" id="L169">    }</span>
+
+    public List&lt;String&gt; getLikedUsers() {
+<span class="nc" id="L172">        return this.likedUsers;</span>
+    }
+
+    public void setLikedUsers(List&lt;String&gt; initialList) {
+<span class="nc" id="L176">        this.likedUsers = initialList;</span>
+<span class="nc" id="L177">    }</span>
+
+    public void addLikedUsers(String userId) {
+<span class="nc" id="L180">        this.likedUsers.add(userId);</span>
+<span class="nc" id="L181">    }</span>
+
+    public void removeLikedUsers(String userId) {
+<span class="nc" id="L184">        this.likedUsers.remove(userId);</span>
+<span class="nc" id="L185">    }</span>
+
+    public LocalDateTime getCreatedTime() {
+<span class="nc" id="L188">        return createdTime;</span>
+    }
+
+    public void setCreatedTime(LocalDateTime createdTime) {
+<span class="nc" id="L192">        this.createdTime = createdTime;</span>
+<span class="nc" id="L193">    }</span>
+
+    public List&lt;String&gt; getCommentList() {
+<span class="nc" id="L196">        return commentList;</span>
+    }
+
+    public void setCommentList(List&lt;String&gt; commentList) {
+<span class="nc" id="L200">        this.commentList = commentList;</span>
+<span class="nc" id="L201">    }</span>
+
+    public void addComment(String commentId) {
+<span class="nc" id="L204">        this.commentList.add(commentId);</span>
+<span class="nc" id="L205">    }</span>
+
+    public void removeComment(String commentId) {
+<span class="nc" id="L208">        this.commentList.remove(commentId);</span>
+<span class="nc" id="L209">    }</span>
+
+
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
