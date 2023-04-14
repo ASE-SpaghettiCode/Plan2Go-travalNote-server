@@ -1,5 +1,7 @@
 package ASESpaghettiCode.TravelNoteServer.Service;
 
+import ASESpaghettiCode.TravelNoteServer.Controller.RestTemplateErrorHandler;
+import ASESpaghettiCode.TravelNoteServer.DTO.NoteDTO;
 import ASESpaghettiCode.TravelNoteServer.Model.Comment;
 import ASESpaghettiCode.TravelNoteServer.Model.Note;
 import ASESpaghettiCode.TravelNoteServer.Model.User;
@@ -8,6 +10,7 @@ import ASESpaghettiCode.TravelNoteServer.Repository.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -26,6 +29,14 @@ public class NoteService {
 
     private final NoteRepository noteRepository;
     private final CommentRepository commentRepository;
+
+    @Value("${UserServerLocation}")
+    private String UserServerLocation;
+
+    @Autowired
+    private RestTemplate restTemplate = new RestTemplateBuilder()
+            .errorHandler(new RestTemplateErrorHandler())
+            .build();
 
     @Autowired
     public NoteService(@Qualifier("noteRepository") NoteRepository noteRepository,@Qualifier("commentRepository") CommentRepository commentRepository) {
@@ -136,5 +147,27 @@ public class NoteService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User haven't follow anyone!");
         }
         return sortedList.get();
+    }
+
+    public List<NoteDTO> addUsernameImagePathtotheNotelist(List<Note> noteList) {
+        List<NoteDTO> noteDTOS = new ArrayList<>();
+        for (Note note : noteList){
+            noteDTOS.add(new NoteDTO(note));
+        }
+        List<String> authorIdList = new ArrayList<>();
+        List<String> authorNameList = new ArrayList<>();
+        List<String> ImagePathList = new ArrayList<>();
+        for (NoteDTO noteDTO : noteDTOS){
+            String authorId = noteDTO.getNote().getAuthorId();
+            if(!authorIdList.contains(authorId)){
+                authorIdList.add(authorId);
+                User user = restTemplate.getForObject(UserServerLocation + "/users/" + authorId, User.class);
+                authorNameList.add(user.getUsername());
+                ImagePathList.add(user.getImageLink());
+            }
+            noteDTO.setAuthorName(authorNameList.get(authorIdList.indexOf(authorId)));
+            noteDTO.setImagePath(ImagePathList.get(authorIdList.indexOf(authorId)));
+        }
+        return noteDTOS;
     }
 }

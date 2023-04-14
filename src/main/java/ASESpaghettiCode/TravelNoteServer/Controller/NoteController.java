@@ -1,5 +1,6 @@
 package ASESpaghettiCode.TravelNoteServer.Controller;
 
+import ASESpaghettiCode.TravelNoteServer.DTO.NoteDTO;
 import ASESpaghettiCode.TravelNoteServer.Model.Note;
 import ASESpaghettiCode.TravelNoteServer.Model.User;
 import ASESpaghettiCode.TravelNoteServer.Repository.NoteRepository;
@@ -90,11 +91,12 @@ public class NoteController {
 
     @GetMapping("/notes/following/{userId}")
     @ResponseStatus(HttpStatus.OK)
-    public List<Note> findFollowingNotes(@PathVariable String userId) {
+    public List<NoteDTO> findFollowingNotes(@PathVariable String userId) {
         // get all the authorId that a user is following
         List<String> followingUserId = restTemplate.getForObject(UserServerLocation + "/users/" + userId + "/followings", List.class);
         // find all notes with the followingUserId
-        return noteService.findNotesOfFollowees(followingUserId);
+        List<Note> noteList = noteService.findNotesOfFollowees(followingUserId);
+        return noteService.addUsernameImagePathtotheNotelist(noteList);
     }
 
 }
