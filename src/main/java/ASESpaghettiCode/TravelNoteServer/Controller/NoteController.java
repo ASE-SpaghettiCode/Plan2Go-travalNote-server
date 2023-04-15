@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -92,8 +93,16 @@ public class NoteController {
     @GetMapping("/notes/following/{userId}")
     @ResponseStatus(HttpStatus.OK)
     public List<NoteDTO> findFollowingNotes(@PathVariable String userId) {
-        // get all the authorId that a user is following
-        List<String> followingUserId = restTemplate.getForObject(UserServerLocation + "/users/" + userId + "/followings", List.class);
+        // get all users that a user is following
+        List<User> followingUser = restTemplate.getForObject(UserServerLocation + "/users/" + userId + "/followings", List.class);
+        // retrive all authorId(followingUserId) from users
+        List<String> followingUserId = new ArrayList<>();
+        for (User user: followingUser){
+            String authorId = user.getUserId();
+            if (!followingUserId.contains(authorId)){
+                followingUserId.add(authorId);
+            }
+        }
         // find all notes with the followingUserId
         List<Note> noteList = noteService.findNotesOfFollowees(followingUserId);
         return noteService.addUsernameImagePathtotheNotelist(noteList);
