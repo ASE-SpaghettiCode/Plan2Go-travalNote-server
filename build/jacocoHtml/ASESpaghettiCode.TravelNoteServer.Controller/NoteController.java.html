@@ -8,10 +8,14 @@ import ASESpaghettiCode.TravelNoteServer.Service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,81 +26,92 @@ public class NoteController {
     private NoteService noteService;
     private NoteRepository noteRepository;
 
-<span class="fc" id="L25">    NoteController(NoteRepository noteRepository, NoteService noteService){</span>
-<span class="fc" id="L26">        this.noteRepository = noteRepository;</span>
-<span class="fc" id="L27">        this.noteService = noteService;</span>
-<span class="fc" id="L28">    }</span>
+<span class="fc" id="L29">    NoteController(NoteRepository noteRepository, NoteService noteService){</span>
+<span class="fc" id="L30">        this.noteRepository = noteRepository;</span>
+<span class="fc" id="L31">        this.noteService = noteService;</span>
+<span class="fc" id="L32">    }</span>
 
     @Value(&quot;${UserServerLocation}&quot;)
     private String UserServerLocation;
 
-<span class="fc" id="L33">    @Autowired</span>
+<span class="fc" id="L37">    @Autowired</span>
     private RestTemplate restTemplate = new RestTemplateBuilder()
-<span class="fc" id="L35">            .errorHandler(new RestTemplateErrorHandler())</span>
-<span class="fc" id="L36">            .build();</span>
+<span class="fc" id="L39">            .errorHandler(new RestTemplateErrorHandler())</span>
+<span class="fc" id="L40">            .build();</span>
 
 
     @GetMapping(&quot;/notes&quot;)
     @ResponseStatus(HttpStatus.OK)
     public List&lt;Note&gt; findAllNotes(){
-<span class="nc" id="L42">        return noteService.findAllNotes();</span>
+<span class="nc" id="L46">        return noteService.findAllNotes();</span>
     }
 
     @GetMapping(&quot;/notes/{noteId}&quot;)
     @ResponseStatus(HttpStatus.OK)
     public Note findNoteById(@PathVariable String noteId) {
-<span class="nc" id="L48">        return noteService.findNoteById(noteId);</span>
+<span class="nc" id="L52">        return noteService.findNoteById(noteId);</span>
     }
 
     @GetMapping(&quot;users/{userId}/notes&quot;)
     @ResponseStatus(HttpStatus.OK)
     public List&lt;Note&gt; findNotesByUser(@PathVariable String userId) {
-<span class="nc" id="L54">        return noteService.findNotesByUserId(userId);</span>
+<span class="nc" id="L58">        return noteService.findNotesByUserId(userId);</span>
     }
 
     @PostMapping(&quot;/notes&quot;)
     @ResponseStatus(HttpStatus.CREATED)
     public Note createNote(@RequestBody Note newNote) {
-<span class="nc" id="L60">        return noteService.createNote(newNote);</span>
+<span class="nc" id="L64">        return noteService.createNote(newNote);</span>
     }
 
     @DeleteMapping(&quot;/users/{userId}/delete/notes/{noteId}&quot;)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteNote(@PathVariable String noteId, @PathVariable String userId) {
-<span class="nc" id="L66">        noteService.deleteNote(noteId, userId);</span>
-<span class="nc" id="L67">    }</span>
+<span class="nc" id="L70">        noteService.deleteNote(noteId, userId);</span>
+<span class="nc" id="L71">    }</span>
 
     @PutMapping(&quot;users/{userId}/editing/notes/{noteId}&quot;)
     @ResponseStatus(HttpStatus.OK)
     public void updateNote(@PathVariable String noteId, @PathVariable String userId, @RequestBody Note note) {
-<span class="nc" id="L72">        noteService.updateNote(noteId, userId, note);</span>
-<span class="nc" id="L73">    }</span>
+<span class="nc" id="L76">        noteService.updateNote(noteId, userId, note);</span>
+<span class="nc" id="L77">    }</span>
 
     @RequestMapping(&quot;/notes/{noteId}&quot;)
     public String getNote(@PathVariable(&quot;noteId&quot;) String noteId){
-<span class="nc" id="L77">        return &quot;the note info page of note &quot;+noteId;</span>
+<span class="nc" id="L81">        return &quot;the note info page of note &quot;+noteId;</span>
     }
 
     @PostMapping(&quot;users/{userId}/likes/notes/{noteId}&quot;)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void userLikesNote(@PathVariable String userId, @PathVariable String noteId) {
-<span class="nc" id="L83">        noteService.userLikesNote(userId, noteId);</span>
-<span class="nc" id="L84">    }</span>
+<span class="nc" id="L87">        noteService.userLikesNote(userId, noteId);</span>
+<span class="nc" id="L88">    }</span>
 
     @DeleteMapping(&quot;users/{userId}/likes/notes/{noteId}&quot;)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void userUnlikesNote(@PathVariable String userId, @PathVariable String noteId) {
-<span class="nc" id="L89">        noteService.userUnlikesNote(userId, noteId);</span>
-<span class="nc" id="L90">    }</span>
+<span class="nc" id="L93">        noteService.userUnlikesNote(userId, noteId);</span>
+<span class="nc" id="L94">    }</span>
 
     @GetMapping(&quot;/notes/following/{userId}&quot;)
     @ResponseStatus(HttpStatus.OK)
     public List&lt;NoteDTO&gt; findFollowingNotes(@PathVariable String userId) {
-        // get all the authorId that a user is following
-<span class="nc" id="L96">        List&lt;String&gt; followingUserId = restTemplate.getForObject(UserServerLocation + &quot;/users/&quot; + userId + &quot;/followings&quot;, List.class);</span>
+        // get all the users that a user is following
+<span class="nc" id="L100">        ParameterizedTypeReference&lt;List&lt;User&gt;&gt; responseType = new ParameterizedTypeReference&lt;List&lt;User&gt;&gt;() {};</span>
+<span class="nc" id="L101">        ResponseEntity&lt;List&lt;User&gt;&gt; response = restTemplate.exchange(UserServerLocation + &quot;/users/&quot; + userId + &quot;/followings&quot;, HttpMethod.GET, null, responseType);</span>
+<span class="nc" id="L102">        List&lt;User&gt; followingUsers = response.getBody();</span>
+
+        // retrive all authorId(followingUserId) from users
+<span class="nc" id="L105">        List&lt;String&gt; followingUserId = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">        for (User user: followingUsers){</span>
+<span class="nc" id="L107">            String authorId = user.getUserId();</span>
+<span class="nc bnc" id="L108" title="All 2 branches missed.">            if (!followingUserId.contains(authorId)){</span>
+<span class="nc" id="L109">                followingUserId.add(authorId);</span>
+            }
+<span class="nc" id="L111">        }</span>
         // find all notes with the followingUserId
-<span class="nc" id="L98">        List&lt;Note&gt; noteList = noteService.findNotesOfFollowees(followingUserId);</span>
-<span class="nc" id="L99">        return noteService.addUsernameImagePathtotheNotelist(noteList);</span>
+<span class="nc" id="L113">        List&lt;Note&gt; noteList = noteService.findNotesOfFollowees(followingUserId);</span>
+<span class="nc" id="L114">        return noteService.addUsernameImagePathtotheNotelist(noteList);</span>
     }
 
 }
