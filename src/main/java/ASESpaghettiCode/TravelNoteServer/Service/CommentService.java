@@ -39,7 +39,7 @@ public class CommentService {
     private final NoteRepository noteRepository;
 
     @Autowired
-    public CommentService(@Qualifier("commentRepository")CommentRepository commentRepository,@Qualifier("noteRepository")NoteRepository noteRepository) {
+    public CommentService(@Qualifier("commentRepository") CommentRepository commentRepository, @Qualifier("noteRepository") NoteRepository noteRepository) {
         this.commentRepository = commentRepository;
         this.noteRepository = noteRepository;
     }
@@ -47,9 +47,9 @@ public class CommentService {
     public Comment createComment(String targetNoteId, CommentPostDTO commentPostDTO) {
         String authorId = commentPostDTO.getCommentAuthorId();
         User user = restTemplate.getForObject(UserServerLocation + "/users/" + authorId, User.class);
-        Comment newComment = new Comment(authorId,user.getUsername(),user.getImageLink(),targetNoteId,commentPostDTO.getCommentText());
+        Comment newComment = new Comment(authorId, user.getUsername(), user.getImageLink(), targetNoteId, commentPostDTO.getCommentText());
         // add comment Id to comment list of note
-        Optional<Note> targetNote =  noteRepository.findById(targetNoteId);
+        Optional<Note> targetNote = noteRepository.findById(targetNoteId);
         if (targetNote.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The travel note is not found!");
         }
@@ -83,13 +83,12 @@ public class CommentService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Comment is not found!");
         } else if (!Objects.equals(userId, targetComment.get().getCommentAuthorId())) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "unauthorized delete!");
-        }
-        else {
+        } else {
             // delete Comment in commentList of the note
             Optional<Note> targetNote = noteRepository.findById(targetComment.get().getTargetNoteId());
             if (targetNote.isEmpty()) {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Note is not found!");
-            }else{
+            } else {
                 targetNote.get().removeComment(commentId);
                 noteRepository.save(targetNote.get());
             }
@@ -101,10 +100,9 @@ public class CommentService {
         Optional<Comment> targetComment = commentRepository.findById(commentId);
         if (targetComment.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Comment is not found!");
-        } else if (!Objects.equals(userId, targetComment.get().getCommentAuthorId())){
+        } else if (!Objects.equals(userId, targetComment.get().getCommentAuthorId())) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Unauthorized edit!");
-        }
-        else {
+        } else {
             targetComment.get().setCommentText(commentPostDTO.getCommentText());
             commentRepository.save(targetComment.get());
         }
