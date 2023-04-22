@@ -124,8 +124,6 @@ public class CommentServiceTest {
 
     @Test
     void updateComment_Success() {
-        CommentPostDTO commentPostDTO = new CommentPostDTO();
-        commentPostDTO.setCommentText("newCommentText");
         when(commentRepository.findById(any(String.class))).thenReturn(Optional.ofNullable(comment));
 
         commentService.updateComment("authorId","1",commentPostDTO);
@@ -135,7 +133,6 @@ public class CommentServiceTest {
 
     @Test
     void updateComment_Fail_NoComment() {
-        CommentPostDTO commentPostDTO = new CommentPostDTO();
         when(commentRepository.findById(any(String.class))).thenReturn(Optional.empty());
 
         assertThrows(ResponseStatusException.class, () -> commentService.updateComment("1","1",commentPostDTO));
@@ -143,7 +140,6 @@ public class CommentServiceTest {
 
     @Test
     void updateComment_Fail_Unauthorized() {
-        CommentPostDTO commentPostDTO = new CommentPostDTO();
         when(commentRepository.findById(any(String.class))).thenReturn(Optional.ofNullable(comment));
 
         assertThrows(ResponseStatusException.class, () -> commentService.updateComment("1","1",commentPostDTO));
