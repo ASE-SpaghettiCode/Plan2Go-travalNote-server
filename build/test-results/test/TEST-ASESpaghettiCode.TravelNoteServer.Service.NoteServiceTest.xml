@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ASESpaghettiCode.TravelNoteServer.Service.NoteServiceTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2023-04-27T11:14:19" hostname="DESKTOP-DP4LJM3" time="0.179">
+  <properties/>
+  <testcase name="createNoteTest()" classname="ASESpaghettiCode.TravelNoteServer.Service.NoteServiceTest" time="0.059"/>
+  <testcase name="findNotesByIdTest_Success()" classname="ASESpaghettiCode.TravelNoteServer.Service.NoteServiceTest" time="0.003"/>
+  <testcase name="findNotesByUserIdTest()" classname="ASESpaghettiCode.TravelNoteServer.Service.NoteServiceTest" time="0.001"/>
+  <testcase name="findAllNotesTest()" classname="ASESpaghettiCode.TravelNoteServer.Service.NoteServiceTest" time="0.002"/>
+  <testcase name="userUnlikesNoteTest_Fail()" classname="ASESpaghettiCode.TravelNoteServer.Service.NoteServiceTest" time="0.01"/>
+  <testcase name="userUnlikesNoteTest_Success()" classname="ASESpaghettiCode.TravelNoteServer.Service.NoteServiceTest" time="0.015"/>
+  <testcase name="updateNoteTest_Fail_NoNote()" classname="ASESpaghettiCode.TravelNoteServer.Service.NoteServiceTest" time="0.002"/>
+  <testcase name="deleteNoteTest_Fail_Unauthorized()" classname="ASESpaghettiCode.TravelNoteServer.Service.NoteServiceTest" time="0.003"/>
+  <testcase name="findNotesByIdTest_Fail()" classname="ASESpaghettiCode.TravelNoteServer.Service.NoteServiceTest" time="0.002"/>
+  <testcase name="deleteNoteTest_Fail_NoNote()" classname="ASESpaghettiCode.TravelNoteServer.Service.NoteServiceTest" time="0.002"/>
+  <testcase name="findNotesOfFolloweesTest_Success()" classname="ASESpaghettiCode.TravelNoteServer.Service.NoteServiceTest" time="0.005"/>
+  <testcase name="updateNoteTest_Fail_Unauthorized()" classname="ASESpaghettiCode.TravelNoteServer.Service.NoteServiceTest" time="0.002"/>
+  <testcase name="deleteNoteTest_Success()" classname="ASESpaghettiCode.TravelNoteServer.Service.NoteServiceTest" time="0.003"/>
+  <testcase name="updateNoteTest_Success()" classname="ASESpaghettiCode.TravelNoteServer.Service.NoteServiceTest" time="0.002"/>
+  <testcase name="findNotesOfFolloweesTest_Fail()" classname="ASESpaghettiCode.TravelNoteServer.Service.NoteServiceTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

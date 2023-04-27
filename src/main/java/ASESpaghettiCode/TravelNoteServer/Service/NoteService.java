@@ -4,6 +4,7 @@ import ASESpaghettiCode.TravelNoteServer.Controller.RestTemplateErrorHandler;
 import ASESpaghettiCode.TravelNoteServer.DTO.NoteDTO;
 import ASESpaghettiCode.TravelNoteServer.Model.Comment;
 import ASESpaghettiCode.TravelNoteServer.Model.Note;
+import ASESpaghettiCode.TravelNoteServer.Model.Notification;
 import ASESpaghettiCode.TravelNoteServer.Model.User;
 import ASESpaghettiCode.TravelNoteServer.Repository.CommentRepository;
 import ASESpaghettiCode.TravelNoteServer.Repository.NoteRepository;
@@ -127,6 +128,18 @@ public class NoteService {
             targetNote.get().addLikedUsers(userId);
             noteRepository.save(targetNote.get());
         }
+        String ownerId = targetNote.get().getAuthorId();
+        restTemplate.postForLocation(UserServerLocation+"/notifications",createLikesNotification(userId, noteId, ownerId));
+    }
+
+    public Notification createLikesNotification(String userId, String noteId,String ownerId){
+        Notification notification = new Notification();
+        notification.setActorId(userId);
+        notification.setMethod("like");
+        notification.setOwnerId(ownerId);
+        notification.setTargetType("note");
+        notification.setTargetId(noteId);
+        return notification;
     }
 
     public void userUnlikesNote(String userId, String noteId) {

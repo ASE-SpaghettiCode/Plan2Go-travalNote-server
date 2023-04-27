@@ -4,6 +4,7 @@ import ASESpaghettiCode.TravelNoteServer.Controller.RestTemplateErrorHandler;
 import ASESpaghettiCode.TravelNoteServer.DTO.CommentPostDTO;
 import ASESpaghettiCode.TravelNoteServer.Model.Comment;
 import ASESpaghettiCode.TravelNoteServer.Model.Note;
+import ASESpaghettiCode.TravelNoteServer.Model.Notification;
 import ASESpaghettiCode.TravelNoteServer.Model.User;
 import ASESpaghettiCode.TravelNoteServer.Repository.CommentRepository;
 import ASESpaghettiCode.TravelNoteServer.Repository.NoteRepository;
@@ -53,10 +54,24 @@ public class CommentService {
         if (targetNote.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The travel note is not found!");
         }
+        // send notification to owner
+        String ownerId = targetNote.get().getAuthorId();
+        restTemplate.postForLocation(UserServerLocation+"/notifications",createCommentsNotification(authorId, targetNoteId, ownerId));
+        //save
         commentRepository.save(newComment);
         targetNote.get().addComment(newComment.getCommentId());
         noteRepository.save(targetNote.get());
         return commentRepository.save(newComment);
+    }
+
+    public Notification createCommentsNotification(String userId, String noteId, String ownerId){
+        Notification notification = new Notification();
+        notification.setActorId(userId);
+        notification.setMethod("comment");
+        notification.setOwnerId(ownerId);
+        notification.setTargetType("note");
+        notification.setTargetId(noteId);
+        return notification;
     }
 
     public List<Comment> findCommentsByNoteId(String noteId) {

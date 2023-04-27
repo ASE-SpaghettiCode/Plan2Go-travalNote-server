@@ -29,25 +29,25 @@ public class CommentController {
     @GetMapping(&quot;/notes/{noteId}/comments&quot;)
     @ResponseStatus(HttpStatus.OK)
     public List&lt;Comment&gt; getCommentsByNoteId(@PathVariable String noteId){
-<span class="nc" id="L32">        return commentService.findCommentsByNoteId(noteId);</span>
+<span class="fc" id="L32">        return commentService.findCommentsByNoteId(noteId);</span>
     }
 
     @PostMapping(&quot;/notes/{noteId}/comments&quot;)
     @ResponseStatus(HttpStatus.CREATED)
     public Comment createCommentForAGivenNote(@PathVariable String noteId, @RequestBody CommentPostDTO commentPostDTO){
-<span class="nc" id="L38">        return commentService.createComment(noteId,commentPostDTO);</span>
+<span class="fc" id="L38">        return commentService.createComment(noteId,commentPostDTO);</span>
     }
 
     @DeleteMapping(&quot;/users/{userId}/comments/{commentId}&quot;)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteComment(@PathVariable String userId, @PathVariable String commentId) {
-<span class="nc" id="L44">        commentService.deleteComment(commentId, userId);</span>
-<span class="nc" id="L45">    }</span>
+<span class="fc" id="L44">        commentService.deleteComment(commentId, userId);</span>
+<span class="fc" id="L45">    }</span>
 
     @PutMapping(&quot;/users/{userId}/comments/{commentId}&quot;)
     @ResponseStatus(HttpStatus.OK)
     public void updateComment(@PathVariable String userId, @PathVariable String commentId, @RequestBody CommentPostDTO commentPostDTO) {
-<span class="nc" id="L50">        commentService.updateComment(userId, commentId, commentPostDTO);</span>
-<span class="nc" id="L51">    }</span>
+<span class="fc" id="L50">        commentService.updateComment(userId, commentId, commentPostDTO);</span>
+<span class="fc" id="L51">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

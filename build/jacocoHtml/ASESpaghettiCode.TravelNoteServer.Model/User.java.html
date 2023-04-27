@@ -21,11 +21,11 @@ public class User{
     public List&lt;String&gt; followers;
     public List&lt;String&gt; followings;
 
-<span class="nc" id="L24">    public User(String username, String password, String token){</span>
-<span class="nc" id="L25">        this.password=password;</span>
-<span class="nc" id="L26">        this.username=username;</span>
-<span class="nc" id="L27">        this.token=token;</span>
-<span class="nc" id="L28">    }</span>
+<span class="fc" id="L24">    public User(String username, String password, String token){</span>
+<span class="fc" id="L25">        this.password=password;</span>
+<span class="fc" id="L26">        this.username=username;</span>
+<span class="fc" id="L27">        this.token=token;</span>
+<span class="fc" id="L28">    }</span>
 
     @JsonCreator
     public static User create(@JsonProperty(&quot;userId&quot;) String userId,
@@ -43,7 +43,7 @@ public class User{
 
 
     public String getUserId() {
-<span class="nc" id="L46">        return userId;</span>
+<span class="fc" id="L46">        return userId;</span>
     }
 
     public String getPassword() {
@@ -55,8 +55,8 @@ public class User{
     }
 
     public void setUserId(String userId) {
-<span class="nc" id="L58">        this.userId = userId;</span>
-<span class="nc" id="L59">    }</span>
+<span class="fc" id="L58">        this.userId = userId;</span>
+<span class="fc" id="L59">    }</span>
 
     public void setPassword(String password) {
 <span class="nc" id="L62">        this.password = password;</span>

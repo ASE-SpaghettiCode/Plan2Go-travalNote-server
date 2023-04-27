@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ASESpaghettiCode.TravelNoteServer.Controller.NoteControllerTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2023-04-27T11:14:27" hostname="DESKTOP-DP4LJM3" time="0.293">
+  <properties/>
+  <testcase name="findFollowingNotesTest()" classname="ASESpaghettiCode.TravelNoteServer.Controller.NoteControllerTest" time="0.073"/>
+  <testcase name="createNoteTest()" classname="ASESpaghettiCode.TravelNoteServer.Controller.NoteControllerTest" time="0.076"/>
+  <testcase name="findNotesByUser()" classname="ASESpaghettiCode.TravelNoteServer.Controller.NoteControllerTest" time="0.026"/>
+  <testcase name="findAllNotesTest()" classname="ASESpaghettiCode.TravelNoteServer.Controller.NoteControllerTest" time="0.02"/>
+  <testcase name="userUnlikeNoteTest()" classname="ASESpaghettiCode.TravelNoteServer.Controller.NoteControllerTest" time="0.008"/>
+  <testcase name="deleteNoteTest()" classname="ASESpaghettiCode.TravelNoteServer.Controller.NoteControllerTest" time="0.009"/>
+  <testcase name="updateNote()" classname="ASESpaghettiCode.TravelNoteServer.Controller.NoteControllerTest" time="0.026"/>
+  <testcase name="userLikeNoteTest()" classname="ASESpaghettiCode.TravelNoteServer.Controller.NoteControllerTest" time="0.017"/>
+  <testcase name="findNoteByIdTest()" classname="ASESpaghettiCode.TravelNoteServer.Controller.NoteControllerTest" time="0.016"/>
+  <system-out><![CDATA[2023-04-27 13:14:26.587  INFO 5860 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [ASESpaghettiCode.TravelNoteServer.Controller.NoteControllerTest], using SpringBootContextLoader
+2023-04-27 13:14:26.588  INFO 5860 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [ASESpaghettiCode.TravelNoteServer.Controller.NoteControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2023-04-27 13:14:26.588  INFO 5860 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [ASESpaghettiCode.TravelNoteServer.Controller.NoteControllerTest]: NoteControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-04-27 13:14:26.596  INFO 5860 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration ASESpaghettiCode.TravelNoteServer.TravelNoteServerApplication for test class ASESpaghettiCode.TravelNoteServer.Controller.NoteControllerTest
+2023-04-27 13:14:26.598  INFO 5860 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2023-04-27 13:14:26.599  INFO 5860 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@67a842b1, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@1c490bf2, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@7cebf48d, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@4e3ef73d, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@6ba68981, org.springframework.test.context.support.DirtiesContextTestExecutionListener@3f64099c, org.springframework.test.context.transaction.TransactionalTestExecutionListener@1c08cd61, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@253646c2, org.springframework.test.context.event.EventPublishingTestExecutionListener@7a832964, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@6534e741, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@3f8d5d43, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@281a0c26, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@4bb1d848, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@9fd2090, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@5ccf13a9]
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.7.9)
+
+2023-04-27 13:14:26.638  INFO 5860 --- [    Test worker] A.T.Controller.NoteControllerTest        : Starting NoteControllerTest using Java 15.0.2 on DESKTOP-DP4LJM3 with PID 5860 (started by Guan in F:\ASE\Plan2Go-travalNote-server)
+2023-04-27 13:14:26.638  INFO 5860 --- [    Test worker] A.T.Controller.NoteControllerTest        : No active profile set, falling back to 1 default profile: "default"
+2023-04-27 13:14:27.542  INFO 5860 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2023-04-27 13:14:27.543  INFO 5860 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2023-04-27 13:14:27.544  INFO 5860 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2023-04-27 13:14:27.566  INFO 5860 --- [    Test worker] A.T.Controller.NoteControllerTest        : Started NoteControllerTest in 0.962 seconds (JVM running for 11.261)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

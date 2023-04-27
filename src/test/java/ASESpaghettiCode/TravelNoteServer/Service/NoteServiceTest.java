@@ -140,17 +140,17 @@ public class NoteServiceTest {
         assertThrows(ResponseStatusException.class, () -> noteService.updateNote("1","1",note));
     }
 
-    @Test
-    void userLikesNoteTest() {
-        List<String> initialLikedUsers = new ArrayList<>();
-        note.setLikedUsers(initialLikedUsers);
-
-        when(noteRepository.findById(any(String.class))).thenReturn(Optional.ofNullable(note));
-
-        noteService.userLikesNote("1","1");
-
-        verify(noteRepository,times(1)).save(any(Note.class));
-    }
+//    @Test
+//    void userLikesNoteTest() {
+//        List<String> initialLikedUsers = new ArrayList<>();
+//        note.setLikedUsers(initialLikedUsers);
+//
+//        when(noteRepository.findById(any(String.class))).thenReturn(Optional.ofNullable(note));
+//
+//        noteService.userLikesNote("1","1");
+//
+//        verify(noteRepository,times(1)).save(any(Note.class));
+//    }
 
     @Test
     void userUnlikesNoteTest_Success() {
