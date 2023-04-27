@@ -56,7 +56,10 @@ public class CommentService {
         }
         // send notification to owner
         String ownerId = targetNote.get().getAuthorId();
-        restTemplate.postForLocation(UserServerLocation+"/notifications",createCommentsNotification(authorId, targetNoteId, ownerId));
+        String commentText = commentPostDTO.getCommentText();
+        int maxLength = 25;
+        String context = (commentText.length()>maxLength) ? commentText.substring(0, maxLength-3)+"..." : commentText;
+        restTemplate.postForLocation(UserServerLocation+"/notifications",createCommentsNotification(authorId, targetNoteId, ownerId, context));
         //save
         commentRepository.save(newComment);
         targetNote.get().addComment(newComment.getCommentId());
@@ -64,13 +67,14 @@ public class CommentService {
         return commentRepository.save(newComment);
     }
 
-    public Notification createCommentsNotification(String userId, String noteId, String ownerId){
+    public Notification createCommentsNotification(String userId, String noteId, String ownerId, String context){
         Notification notification = new Notification();
         notification.setActorId(userId);
         notification.setMethod("comment");
         notification.setOwnerId(ownerId);
         notification.setTargetType("note");
         notification.setTargetId(noteId);
+        notification.setContext(context);
         return notification;
     }
 
