@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ASESpaghettiCode.TravelNoteServer.Service.CommentServiceTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2023-04-27T11:14:27" hostname="DESKTOP-DP4LJM3" time="0.064">
+<testsuite name="ASESpaghettiCode.TravelNoteServer.Service.CommentServiceTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2023-05-06T12:54:04" hostname="DESKTOP-DP4LJM3" time="0.09">
   <properties/>
-  <testcase name="updateComment_Fail_NoComment()" classname="ASESpaghettiCode.TravelNoteServer.Service.CommentServiceTest" time="0.003"/>
+  <testcase name="updateComment_Fail_NoComment()" classname="ASESpaghettiCode.TravelNoteServer.Service.CommentServiceTest" time="0.01"/>
   <testcase name="updateComment_Fail_Unauthorized()" classname="ASESpaghettiCode.TravelNoteServer.Service.CommentServiceTest" time="0.002"/>
-  <testcase name="findCommentsByNoteIdTest_Success()" classname="ASESpaghettiCode.TravelNoteServer.Service.CommentServiceTest" time="0.005"/>
+  <testcase name="findCommentsByNoteIdTest_Success()" classname="ASESpaghettiCode.TravelNoteServer.Service.CommentServiceTest" time="0.016"/>
   <testcase name="deleteCommentTest_Fail_Unauthorized()" classname="ASESpaghettiCode.TravelNoteServer.Service.CommentServiceTest" time="0.002"/>
-  <testcase name="updateComment_Success()" classname="ASESpaghettiCode.TravelNoteServer.Service.CommentServiceTest" time="0.003"/>
+  <testcase name="updateComment_Success()" classname="ASESpaghettiCode.TravelNoteServer.Service.CommentServiceTest" time="0.012"/>
   <testcase name="deleteCommentTest_Fail_NoNote()" classname="ASESpaghettiCode.TravelNoteServer.Service.CommentServiceTest" time="0.003"/>
   <testcase name="findCommentsByNoteIdTest_Fail()" classname="ASESpaghettiCode.TravelNoteServer.Service.CommentServiceTest" time="0.002"/>
   <testcase name="deleteCommentTest_Success()" classname="ASESpaghettiCode.TravelNoteServer.Service.CommentServiceTest" time="0.004"/>
-  <testcase name="deleteCommentTest_Fail_NoComment()" classname="ASESpaghettiCode.TravelNoteServer.Service.CommentServiceTest" time="0.002"/>
+  <testcase name="deleteCommentTest_Fail_NoComment()" classname="ASESpaghettiCode.TravelNoteServer.Service.CommentServiceTest" time="0.003"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
