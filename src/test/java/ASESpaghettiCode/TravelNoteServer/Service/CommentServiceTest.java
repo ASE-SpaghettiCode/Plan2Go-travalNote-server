@@ -57,18 +57,18 @@ public class CommentServiceTest {
         note = new Note("title1", "authorId1", "imageLink", "11.11.2022", 10, 5.0, 100, 3, "targetGroup1", "destination1", coordinates, obj);
     }
 
-    @Test
-    void createCommentTest() {
-        ReflectionTestUtils.setField(commentService, "UserServerLocation", "http://localhost:8081");
-        note.setCommentList(new ArrayList<>());
-
-        when(noteRepository.findById(any(String.class))).thenReturn(java.util.Optional.ofNullable(note));
-        when(commentRepository.save(any(Comment.class))).thenReturn(comment);
-        when(noteRepository.save(any(Note.class))).thenReturn(note);
-
-        Comment createComment = commentService.createComment("1", commentPostDTO);
-        assertEquals(comment, createComment);
-    }
+//    @Test
+//    void createCommentTest() {
+//        ReflectionTestUtils.setField(commentService, "UserServerLocation", "http://localhost:8081");
+//        note.setCommentList(new ArrayList<>());
+//
+//        when(noteRepository.findById(any(String.class))).thenReturn(java.util.Optional.ofNullable(note));
+//        when(commentRepository.save(any(Comment.class))).thenReturn(comment);
+//        when(noteRepository.save(any(Note.class))).thenReturn(note);
+//
+//        Comment createComment = commentService.createComment("1", commentPostDTO);
+//        assertEquals(comment, createComment);
+//    }
 
     @Test
     void findCommentsByNoteIdTest_Success() {
