@@ -32,8 +32,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(NoteController.class)
 public class NoteControllerTest {
@@ -183,7 +182,7 @@ public class NoteControllerTest {
     }
 
     @Test
-    void updateNote() throws Exception {
+    void updateNoteTest() throws Exception {
         note.setCreatedTime(null);
         doNothing().when(noteService).updateNote(any(String.class), any(String.class), any(Note.class));
 

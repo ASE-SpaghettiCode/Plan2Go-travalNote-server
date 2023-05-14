@@ -7,6 +7,7 @@ import ASESpaghettiCode.TravelNoteServer.Repository.CommentRepository;
 import ASESpaghettiCode.TravelNoteServer.Repository.NoteRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -30,7 +31,7 @@ public class CommentServiceTest {
     @BeforeEach
     void createComment() {
         commentPostDTO.setCommentText("commentText");
-        commentPostDTO.setCommentAuthorId("authorId");
+        commentPostDTO.setCommentAuthorId("1");
 
         Map<String, Object> editorData = new HashMap<>();
         editorData.put("time", 1681651243808L);
@@ -58,8 +59,9 @@ public class CommentServiceTest {
 
 //    @Test
 //    void createCommentTest() {
-//        User user = new User("username", "password", "1");
-//        when(restTemplate.getForObject(any(String.class), eq(User.class))).thenReturn(user);
+//        ReflectionTestUtils.setField(commentService, "UserServerLocation", "http://localhost:8081");
+//        note.setCommentList(new ArrayList<>());
+//
 //        when(noteRepository.findById(any(String.class))).thenReturn(java.util.Optional.ofNullable(note));
 //        when(commentRepository.save(any(Comment.class))).thenReturn(comment);
 //        when(noteRepository.save(any(Note.class))).thenReturn(note);

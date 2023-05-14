@@ -6,8 +6,11 @@ import ASESpaghettiCode.TravelNoteServer.Repository.CommentRepository;
 import ASESpaghettiCode.TravelNoteServer.Repository.NoteRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.net.URISyntaxException;
 import java.util.*;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -15,9 +18,11 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@SpringBootTest
 public class NoteServiceTest {
     private final NoteRepository noteRepository = mock(NoteRepository.class);
     private final CommentRepository commentRepository = mock(CommentRepository.class);
+
     private final NoteService noteService = new NoteService(noteRepository, commentRepository);
 
     Comment comment = new Comment("authorId", "authorName", "imageLink", "targetNoteId", "commentText");
@@ -121,35 +126,35 @@ public class NoteServiceTest {
     void updateNoteTest_Success() {
         when(noteRepository.findById(any(String.class))).thenReturn(Optional.ofNullable(note));
 
-        noteService.updateNote("1","authorId1",note);
+        noteService.updateNote("1", "authorId1", note);
 
-        verify(noteRepository,times(1)).save(any(Note.class));
+        verify(noteRepository, times(1)).save(any(Note.class));
     }
 
     @Test
     void updateNoteTest_Fail_NoNote() {
         when(noteRepository.findById(any(String.class))).thenReturn(Optional.empty());
 
-        assertThrows(ResponseStatusException.class, () -> noteService.updateNote("1","1",note));
+        assertThrows(ResponseStatusException.class, () -> noteService.updateNote("1", "1", note));
     }
 
     @Test
     void updateNoteTest_Fail_Unauthorized() {
         when(noteRepository.findById(any(String.class))).thenReturn(Optional.ofNullable(note));
 
-        assertThrows(ResponseStatusException.class, () -> noteService.updateNote("1","1",note));
+        assertThrows(ResponseStatusException.class, () -> noteService.updateNote("1", "1", note));
     }
 
 //    @Test
 //    void userLikesNoteTest() {
 //        List<String> initialLikedUsers = new ArrayList<>();
 //        note.setLikedUsers(initialLikedUsers);
-//
+//        ReflectionTestUtils.setField(noteService, "UserServerLocation", "http://localhost:8081");
 //        when(noteRepository.findById(any(String.class))).thenReturn(Optional.ofNullable(note));
 //
-//        noteService.userLikesNote("1","1");
+//        noteService.userLikesNote("1", "1");
 //
-//        verify(noteRepository,times(1)).save(any(Note.class));
+//        verify(noteRepository, times(1)).save(any(Note.class));
 //    }
 
     @Test
@@ -160,9 +165,9 @@ public class NoteServiceTest {
 
         when(noteRepository.findById(any(String.class))).thenReturn(Optional.ofNullable(note));
 
-        noteService.userUnlikesNote("1","1");
+        noteService.userUnlikesNote("1", "1");
 
-        verify(noteRepository,times(1)).save(any(Note.class));
+        verify(noteRepository, times(1)).save(any(Note.class));
     }
 
     @Test
@@ -172,7 +177,7 @@ public class NoteServiceTest {
 
         when(noteRepository.findById(any(String.class))).thenReturn(Optional.ofNullable(note));
 
-        assertThrows(ResponseStatusException.class, () -> noteService.userUnlikesNote("1","1"));
+        assertThrows(ResponseStatusException.class, () -> noteService.userUnlikesNote("1", "1"));
     }
 
     @Test
@@ -189,12 +194,11 @@ public class NoteServiceTest {
         assertThrows(ResponseStatusException.class, () -> noteService.findNotesOfFollowees(List.of("1")));
     }
 
-//    RestTemplate restTemplate = mock(RestTemplate.class);
-//    @Test
-//    void addUsernameImagePathtotheNotelistTest() {
-//        User user = new User("1","1","1");
-//        when(restTemplate.getForObject(anyString(),eq(User.class))).thenReturn(user);
-//
-//        noteService.addUsernameImagePathtotheNotelist(List.of(note));
-//    }
+    @Test
+    void addUsernameImagePathtotheNotelistTest_Fail() {
+        ReflectionTestUtils.setField(noteService, "UserServerLocation", "http://localhost:8081");
+
+        assertThrows(RuntimeException.class,() -> noteService.addUsernameImagePathtotheNotelist(List.of(note)));
+    }
 }
+
