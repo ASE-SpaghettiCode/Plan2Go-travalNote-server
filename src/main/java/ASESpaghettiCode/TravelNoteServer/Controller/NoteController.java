@@ -90,6 +90,7 @@ public class NoteController {
     @DeleteMapping("users/{userId}/likes/notes/{noteId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void userUnlikesNote(@PathVariable String userId, @PathVariable String noteId) {
+        System.out.println("controller called");
         noteService.userUnlikesNote(userId, noteId);
     }
 
@@ -101,7 +102,7 @@ public class NoteController {
         ResponseEntity<List<User>> response = restTemplate.exchange(UserServerLocation + "/users/" + userId + "/followings", HttpMethod.GET, null, responseType);
         List<User> followingUsers = response.getBody();
 
-        // retrive all authorId(followingUserId) from users
+        // retrieve all authorId(followingUserId) from users
         List<String> followingUserId = new ArrayList<>();
         for (User user: followingUsers){
             String authorId = user.getUserId();

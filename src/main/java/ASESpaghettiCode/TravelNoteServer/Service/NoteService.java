@@ -143,6 +143,7 @@ public class NoteService {
     }
 
     public void userUnlikesNote(String userId, String noteId) {
+        System.out.println("service called");
         Optional<Note> targetNote = noteRepository.findById(noteId);
         if (targetNote.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The travel note is not found!");
@@ -152,6 +153,9 @@ public class NoteService {
         }
         targetNote.get().removeLikedUsers(userId);
         noteRepository.save(targetNote.get());
+        String ownerId = targetNote.get().getAuthorId();
+        restTemplate.put(UserServerLocation+"/notifications",createLikesNotification(userId, noteId, ownerId));
+        System.out.println("delete request sent");
     }
 
     public List<Note> findNotesOfFollowees(List<String> followingUserId) {
