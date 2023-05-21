@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NoteService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TravelNoteServer</a> &gt; <a href="index.source.html" class="el_package">ASESpaghettiCode.TravelNoteServer.Service</a> &gt; <span class="el_source">NoteService.java</span></div><h1>NoteService.java</h1><pre class="source lang-java linenums">package ASESpaghettiCode.TravelNoteServer.Service;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NoteService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TravelNoteServer</a> &gt; <a href="index.source.html" class="el_package">ASESpaghettiCode.TravelNoteServer.Service</a> &gt; <span class="el_source">NoteService.java</span></div><h1>NoteService.java</h1><pre class="source lang-java linenums">package ASESpaghettiCode.TravelNoteServer.Service;
 
 import ASESpaghettiCode.TravelNoteServer.Controller.RestTemplateErrorHandler;
 import ASESpaghettiCode.TravelNoteServer.DTO.NoteDTO;
@@ -147,41 +147,43 @@ public class NoteService {
 <span class="pc bpc" id="L147" title="1 of 2 branches missed.">        if (targetNote.isEmpty()) {</span>
 <span class="nc" id="L148">            throw new ResponseStatusException(HttpStatus.NOT_FOUND, &quot;The travel note is not found!&quot;);</span>
         }
-<span class="fc bfc" id="L150" title="All 2 branches covered.">        if (!targetNote.get().getLikedUsers().contains(userId)) {</span>
+<span class="pc bpc" id="L150" title="1 of 2 branches missed.">        if (!targetNote.get().getLikedUsers().contains(userId)) {</span>
 <span class="fc" id="L151">            throw new ResponseStatusException(HttpStatus.NOT_FOUND, &quot;The user didn't like this travel note&quot;);</span>
         }
-<span class="fc" id="L153">        targetNote.get().removeLikedUsers(userId);</span>
-<span class="fc" id="L154">        noteRepository.save(targetNote.get());</span>
-<span class="fc" id="L155">    }</span>
+<span class="nc" id="L153">        targetNote.get().removeLikedUsers(userId);</span>
+<span class="nc" id="L154">        noteRepository.save(targetNote.get());</span>
+<span class="nc" id="L155">        String ownerId = targetNote.get().getAuthorId();</span>
+<span class="nc" id="L156">        restTemplate.put(UserServerLocation+&quot;/notifications&quot;,createLikesNotification(userId, noteId, ownerId));</span>
+<span class="nc" id="L157">    }</span>
 
     public List&lt;Note&gt; findNotesOfFollowees(List&lt;String&gt; followingUserId) {
-<span class="fc" id="L158">        Optional&lt;List&lt;Note&gt;&gt; sortedList = Optional.ofNullable(noteRepository.findByUserIdListInOrderByCreatedDateAsc(followingUserId, Sort.by(Sort.Direction.DESC, &quot;createdTime&quot;)));</span>
-<span class="fc bfc" id="L159" title="All 2 branches covered.">        if (sortedList.isEmpty()) {</span>
-<span class="fc" id="L160">            throw new ResponseStatusException(HttpStatus.NOT_FOUND, &quot;User haven't follow anyone!&quot;);</span>
+<span class="fc" id="L160">        Optional&lt;List&lt;Note&gt;&gt; sortedList = Optional.ofNullable(noteRepository.findByUserIdListInOrderByCreatedDateAsc(followingUserId, Sort.by(Sort.Direction.DESC, &quot;createdTime&quot;)));</span>
+<span class="fc bfc" id="L161" title="All 2 branches covered.">        if (sortedList.isEmpty()) {</span>
+<span class="fc" id="L162">            throw new ResponseStatusException(HttpStatus.NOT_FOUND, &quot;User haven't follow anyone!&quot;);</span>
         }
-<span class="fc" id="L162">        return sortedList.get();</span>
+<span class="fc" id="L164">        return sortedList.get();</span>
     }
 
     public List&lt;NoteDTO&gt; addUsernameImagePathtotheNotelist(List&lt;Note&gt; noteList) {
-<span class="nc" id="L166">        List&lt;NoteDTO&gt; noteDTOS = new ArrayList&lt;&gt;();</span>
-<span class="nc bnc" id="L167" title="All 2 branches missed.">        for (Note note : noteList){</span>
-<span class="nc" id="L168">            noteDTOS.add(new NoteDTO(note));</span>
-<span class="nc" id="L169">        }</span>
-<span class="nc" id="L170">        List&lt;String&gt; authorIdList = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L171">        List&lt;String&gt; authorNameList = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L172">        List&lt;String&gt; ImagePathList = new ArrayList&lt;&gt;();</span>
-<span class="nc bnc" id="L173" title="All 2 branches missed.">        for (NoteDTO noteDTO : noteDTOS){</span>
-<span class="nc" id="L174">            String authorId = noteDTO.getNote().getAuthorId();</span>
-<span class="nc bnc" id="L175" title="All 2 branches missed.">            if(!authorIdList.contains(authorId)){</span>
-<span class="nc" id="L176">                authorIdList.add(authorId);</span>
-<span class="nc" id="L177">                User user = restTemplate.getForObject(UserServerLocation + &quot;/users/&quot; + authorId, User.class);</span>
-<span class="nc" id="L178">                authorNameList.add(user.getUsername());</span>
-<span class="nc" id="L179">                ImagePathList.add(user.getImageLink());</span>
+<span class="fc" id="L168">        List&lt;NoteDTO&gt; noteDTOS = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L169" title="All 2 branches covered.">        for (Note note : noteList){</span>
+<span class="fc" id="L170">            noteDTOS.add(new NoteDTO(note));</span>
+<span class="fc" id="L171">        }</span>
+<span class="fc" id="L172">        List&lt;String&gt; authorIdList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L173">        List&lt;String&gt; authorNameList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L174">        List&lt;String&gt; ImagePathList = new ArrayList&lt;&gt;();</span>
+<span class="pc bpc" id="L175" title="1 of 2 branches missed.">        for (NoteDTO noteDTO : noteDTOS){</span>
+<span class="fc" id="L176">            String authorId = noteDTO.getNote().getAuthorId();</span>
+<span class="pc bpc" id="L177" title="1 of 2 branches missed.">            if(!authorIdList.contains(authorId)){</span>
+<span class="fc" id="L178">                authorIdList.add(authorId);</span>
+<span class="nc" id="L179">                User user = restTemplate.getForObject(UserServerLocation + &quot;/users/&quot; + authorId, User.class);</span>
+<span class="nc" id="L180">                authorNameList.add(user.getUsername());</span>
+<span class="nc" id="L181">                ImagePathList.add(user.getImageLink());</span>
             }
-<span class="nc" id="L181">            noteDTO.setAuthorName(authorNameList.get(authorIdList.indexOf(authorId)));</span>
-<span class="nc" id="L182">            noteDTO.setImagePath(ImagePathList.get(authorIdList.indexOf(authorId)));</span>
-<span class="nc" id="L183">        }</span>
-<span class="nc" id="L184">        return noteDTOS;</span>
+<span class="nc" id="L183">            noteDTO.setAuthorName(authorNameList.get(authorIdList.indexOf(authorId)));</span>
+<span class="nc" id="L184">            noteDTO.setImagePath(ImagePathList.get(authorIdList.indexOf(authorId)));</span>
+<span class="nc" id="L185">        }</span>
+<span class="nc" id="L186">        return noteDTOS;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
