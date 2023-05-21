@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.200s</div>
+<div class="counter">0.153s</div>
 <p>duration</p>
 </div>
 </td>
@@ -79,42 +79,42 @@
 </thead>
 <tr>
 <td class="success">createNoteTest()</td>
-<td class="success">0.044s</td>
+<td class="success">0.019s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">deleteNoteTest()</td>
-<td class="success">0.010s</td>
+<td class="success">0.007s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">findAllNotesTest()</td>
-<td class="success">0.014s</td>
+<td class="success">0.010s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">findFollowingNotesTest()</td>
-<td class="success">0.057s</td>
+<td class="success">0.049s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">findNoteByIdTest()</td>
-<td class="success">0.018s</td>
+<td class="success">0.011s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">findNotesByUser()</td>
-<td class="success">0.013s</td>
+<td class="success">0.011s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">updateNote()</td>
-<td class="success">0.017s</td>
+<td class="success">updateNoteTest()</td>
+<td class="success">0.028s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">userLikeNoteTest()</td>
-<td class="success">0.018s</td>
+<td class="success">0.009s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -127,12 +127,12 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>2023-05-06 14:54:02.652  INFO 14644 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [ASESpaghettiCode.TravelNoteServer.Controller.NoteControllerTest], using SpringBootContextLoader
-2023-05-06 14:54:02.653  INFO 14644 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [ASESpaghettiCode.TravelNoteServer.Controller.NoteControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
-2023-05-06 14:54:02.654  INFO 14644 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [ASESpaghettiCode.TravelNoteServer.Controller.NoteControllerTest]: NoteControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2023-05-06 14:54:02.661  INFO 14644 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration ASESpaghettiCode.TravelNoteServer.TravelNoteServerApplication for test class ASESpaghettiCode.TravelNoteServer.Controller.NoteControllerTest
-2023-05-06 14:54:02.663  INFO 14644 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
-2023-05-06 14:54:02.664  INFO 14644 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@5eb66704, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@76ba2139, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@ec4e9e4, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@53a49745, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@3ec75472, org.springframework.test.context.support.DirtiesContextTestExecutionListener@1953197a, org.springframework.test.context.transaction.TransactionalTestExecutionListener@30f1487d, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@4798ff99, org.springframework.test.context.event.EventPublishingTestExecutionListener@437847dc, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@42e11e00, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@78690481, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@780d5822, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@79cab658, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@3391a67f, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@3ecf180]
+<pre>2023-05-21 16:54:16.910  INFO 33717 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [ASESpaghettiCode.TravelNoteServer.Controller.NoteControllerTest], using SpringBootContextLoader
+2023-05-21 16:54:16.911  INFO 33717 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [ASESpaghettiCode.TravelNoteServer.Controller.NoteControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2023-05-21 16:54:16.912  INFO 33717 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [ASESpaghettiCode.TravelNoteServer.Controller.NoteControllerTest]: NoteControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-05-21 16:54:16.919  INFO 33717 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration ASESpaghettiCode.TravelNoteServer.TravelNoteServerApplication for test class ASESpaghettiCode.TravelNoteServer.Controller.NoteControllerTest
+2023-05-21 16:54:16.921  INFO 33717 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2023-05-21 16:54:16.921  INFO 33717 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@3c04dfb3, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@c6969b2, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@784ae08f, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@7804c542, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@62e764b6, org.springframework.test.context.support.DirtiesContextTestExecutionListener@2504a5a1, org.springframework.test.context.transaction.TransactionalTestExecutionListener@a657716, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@54958dcd, org.springframework.test.context.event.EventPublishingTestExecutionListener@d8e813d, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@da70480, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@2c5b1fe5, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@54d80446, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@2d26e089, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@189062a9, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@6cc0f269]
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -142,12 +142,13 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v2.7.9)
 
-2023-05-06 14:54:02.699  INFO 14644 --- [    Test worker] A.T.Controller.NoteControllerTest        : Starting NoteControllerTest using Java 15.0.2 on DESKTOP-DP4LJM3 with PID 14644 (started by Guan in F:\ASE\Plan2Go-travalNote-server)
-2023-05-06 14:54:02.700  INFO 14644 --- [    Test worker] A.T.Controller.NoteControllerTest        : No active profile set, falling back to 1 default profile: &quot;default&quot;
-2023-05-06 14:54:03.682  INFO 14644 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2023-05-06 14:54:03.682  INFO 14644 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2023-05-06 14:54:03.684  INFO 14644 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
-2023-05-06 14:54:03.704  INFO 14644 --- [    Test worker] A.T.Controller.NoteControllerTest        : Started NoteControllerTest in 1.034 seconds (JVM running for 10.924)
+2023-05-21 16:54:16.947  INFO 33717 --- [    Test worker] A.T.Controller.NoteControllerTest        : Starting NoteControllerTest using Java 11.0.18 on MacBook-Pro.local with PID 33717 (started by mac in /Users/mac/IdeaProjects/Plan2Go-travalNote-server)
+2023-05-21 16:54:16.948  INFO 33717 --- [    Test worker] A.T.Controller.NoteControllerTest        : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2023-05-21 16:54:17.714  INFO 33717 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2023-05-21 16:54:17.714  INFO 33717 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2023-05-21 16:54:17.715  INFO 33717 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2023-05-21 16:54:17.728  INFO 33717 --- [    Test worker] A.T.Controller.NoteControllerTest        : Started NoteControllerTest in 0.804 seconds (JVM running for 10.437)
+controller called
 </pre>
 </span>
 </div>
@@ -159,7 +160,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 7.6.1</a> at 2023年5月6日 下午2:54:05</p>
+<a href="http://www.gradle.org">Gradle 7.6.1</a> at 21 May 2023, 16:54:18</p>
 </div>
 </div>
 </body>

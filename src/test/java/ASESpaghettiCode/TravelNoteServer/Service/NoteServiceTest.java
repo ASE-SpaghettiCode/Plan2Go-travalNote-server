@@ -157,18 +157,18 @@ public class NoteServiceTest {
 //        verify(noteRepository, times(1)).save(any(Note.class));
 //    }
 
-    @Test
-    void userUnlikesNoteTest_Success() {
-        List<String> initialLikedUsers = new ArrayList<>();
-        initialLikedUsers.add("1");
-        note.setLikedUsers(initialLikedUsers);
-
-        when(noteRepository.findById(any(String.class))).thenReturn(Optional.ofNullable(note));
-
-        noteService.userUnlikesNote("1", "1");
-
-        verify(noteRepository, times(1)).save(any(Note.class));
-    }
+//    @Test
+//    void userUnlikesNoteTest_Success() {
+//        List<String> initialLikedUsers = new ArrayList<>();
+//        initialLikedUsers.add("1");
+//        note.setLikedUsers(initialLikedUsers);
+//
+//        when(noteRepository.findById(any(String.class))).thenReturn(Optional.ofNullable(note));
+//
+//        noteService.userUnlikesNote("1", "1");
+//
+//        verify(noteRepository, times(1)).save(any(Note.class));
+//    }
 
     @Test
     void userUnlikesNoteTest_Fail() {

@@ -152,6 +152,8 @@ public class NoteService {
         }
         targetNote.get().removeLikedUsers(userId);
         noteRepository.save(targetNote.get());
+        String ownerId = targetNote.get().getAuthorId();
+        restTemplate.put(UserServerLocation+"/notifications",createLikesNotification(userId, noteId, ownerId));
     }
 
     public List<Note> findNotesOfFollowees(List<String> followingUserId) {
